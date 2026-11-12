@@ -4,9 +4,11 @@
     const API_BASE = (
         params.get("api") ||
         configuredApi ||
-        (window.location.protocol === "file:" || window.location.port === "8501"
+        (window.location.protocol === "file:"
             ? "http://localhost:8000"
-            : window.location.origin)
+            : window.location.port === "8501"
+              ? `${window.location.protocol}//${window.location.hostname}:8000`
+              : window.location.origin)
     ).replace(/\/+$/, "");
 
     const readStorage = (key, fallback) => {

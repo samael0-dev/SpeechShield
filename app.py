@@ -2,41 +2,13 @@
 
 from __future__ import annotations
 
-import logging
 import os
-from pathlib import Path
 
 import uvicorn
 
 from src.api.main import app as fastapi_app
+from src.api.main import ensure_baseline_weights
 from src.model.classifier import ToxicityClassifier
-
-logger = logging.getLogger(__name__)
-
-
-def ensure_baseline_weights() -> None:
-    """Generate starter dataset and baseline weights on first boot when missing."""
-    backend = os.getenv("MODEL_BACKEND", "hybrid").lower()
-    if backend == "heuristic":
-        return
-
-    weights_path = Path(os.getenv("BASELINE_WEIGHTS_PATH", "data/weights/baseline_model.joblib"))
-    if weights_path.exists():
-        return
-
-    try:
-        from scripts.train_model import (
-            DEFAULT_DATA_PATH,
-            load_or_create_training_data,
-            train_baseline,
-        )
-
-        logger.info("Baseline weights missing at %s; training starter model...", weights_path)
-        df = load_or_create_training_data(DEFAULT_DATA_PATH)
-        train_baseline(df, output_path=weights_path, model_type="logreg")
-    except (OSError, RuntimeError, ValueError, ImportError) as exc:  # pragma: no cover - startup safety fallback
-        logger.warning("Could not bootstrap baseline weights (%s); falling back to heuristic.", exc)
-
 
 ensure_baseline_weights()
 

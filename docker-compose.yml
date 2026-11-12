@@ -11,7 +11,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-toxicity_db}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -44,6 +44,11 @@ services:
       APP_ENV: production
       MODEL_BACKEND: ${MODEL_BACKEND:-hybrid}
       TRANSFORMER_MODEL_NAME: ${TRANSFORMER_MODEL_NAME:-vinai/bertweet-base}
+      TOXICITY_THRESHOLD: ${TOXICITY_THRESHOLD:-0.50}
+      BORDERLINE_LOW: ${BORDERLINE_LOW:-0.60}
+      BORDERLINE_HIGH: ${BORDERLINE_HIGH:-0.80}
+      FAST_PASS_SAFE_THRESHOLD: ${FAST_PASS_SAFE_THRESHOLD:-0.20}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
       DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-toxicity_db}
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     volumes:

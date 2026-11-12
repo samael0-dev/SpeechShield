@@ -25,6 +25,33 @@ logging.basicConfig(
 )
 
 
+logger = logging.getLogger(__name__)
+
+
+def ensure_baseline_weights() -> None:
+    """Generate starter dataset and baseline weights on first boot when missing."""
+    backend = os.getenv("MODEL_BACKEND", "hybrid").lower()
+    if backend == "heuristic":
+        return
+
+    weights_path = Path(os.getenv("BASELINE_WEIGHTS_PATH", "data/weights/baseline_model.joblib"))
+    if weights_path.exists():
+        return
+
+    try:
+        from scripts.train_model import (
+            DEFAULT_DATA_PATH,
+            load_or_create_training_data,
+            train_baseline,
+        )
+
+        logger.info("Baseline weights missing at %s; training starter model...", weights_path)
+        df = load_or_create_training_data(DEFAULT_DATA_PATH)
+        train_baseline(df, output_path=weights_path, model_type="logreg")
+    except (OSError, RuntimeError, ValueError, ImportError) as exc:  # pragma: no cover - startup fallback
+        logger.warning("Could not bootstrap baseline weights (%s); falling back to heuristic.", exc)
+
+
 def _float_env(name: str, default: float) -> float:
     try:
         return float(os.getenv(name, str(default)))
@@ -38,6 +65,8 @@ def create_app(classifier: ToxicityClassifier | None = None) -> FastAPI:
     @asynccontextmanager
     async def lifespan(application: FastAPI) -> AsyncIterator[None]:
         if getattr(application.state, "classifier", None) is None:
+            if classifier is None:
+                ensure_baseline_weights()
             application.state.classifier = classifier or ToxicityClassifier(
                 toxicity_threshold=_float_env("TOXICITY_THRESHOLD", 0.50),
                 borderline_low=_float_env("BORDERLINE_LOW", 0.60),
