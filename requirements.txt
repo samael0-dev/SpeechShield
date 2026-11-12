@@ -17,7 +17,7 @@ spacy>=3.7.0
 
 # Social Media Text Cleaning
 emoji>=2.10.0
-ekphrasis>=0.5.4
+# ekphrasis>=0.5.4  # Disabled by default on Render / Free Tier to prevent OOM (>512MiB from Twitter ngrams)
 
 # Backend API
 fastapi>=0.110.0

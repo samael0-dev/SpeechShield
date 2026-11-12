@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import os
 import re
 from dataclasses import dataclass, field
 from typing import Any
@@ -133,11 +134,14 @@ class SocialTextCleaner:
 
     def __init__(
         self,
-        use_ekphrasis: bool = True,
+        use_ekphrasis: bool | None = None,
         lowercase: bool = True,
         replace_urls: bool = True,
         replace_mentions: bool = True,
     ) -> None:
+        if use_ekphrasis is None:
+            use_ekphrasis = os.getenv("USE_EKPHRASIS", "false").strip().lower() in {"true", "1", "yes"}
+        self.use_ekphrasis = use_ekphrasis
         self.lowercase = lowercase
         self.replace_urls = replace_urls
         self.replace_mentions = replace_mentions

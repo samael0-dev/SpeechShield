@@ -26,6 +26,8 @@ services:
         value: "0.80"
       - key: FAST_PASS_SAFE_THRESHOLD
         value: "0.20"
+      - key: USE_EKPHRASIS
+        value: "false"
       # By default, SpeechShield uses SQLite (zero-config, no external database needed).
       # If you attach a Render PostgreSQL database, uncomment the block below:
       # - key: DATABASE_URL

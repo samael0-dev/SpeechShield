@@ -97,7 +97,7 @@ def build_starter_dataset() -> pd.DataFrame:
 
 def preprocess_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     """Apply `SocialTextCleaner` across all text rows and ensure label columns exist."""
-    cleaner = SocialTextCleaner(use_ekphrasis=True)
+    cleaner = SocialTextCleaner(use_ekphrasis=None)
     cleaned_texts: list[str] = []
     sentiments: list[float] = []
     for text in df["text"].astype(str):

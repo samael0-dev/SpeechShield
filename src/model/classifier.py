@@ -91,7 +91,7 @@ class ToxicityClassifier:
         self.borderline_high = borderline_high
         self.fast_pass_safe_threshold = fast_pass_safe_threshold
         self.allow_hub_download = allow_hub_download
-        self.cleaner = cleaner or SocialTextCleaner(use_ekphrasis=True)
+        self.cleaner = cleaner or SocialTextCleaner(use_ekphrasis=None)
 
         self._baseline_bundle: dict[str, Any] | None = None
         self._transformer_pipeline: Any = None

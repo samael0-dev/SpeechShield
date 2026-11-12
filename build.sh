@@ -5,8 +5,11 @@ set -o errexit
 echo "==> Upgrading pip..."
 pip install --upgrade pip
 
+echo "==> Installing CPU-only PyTorch to conserve memory (<512MiB)..."
+pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+
 echo "==> Installing Python dependencies..."
-pip install -r requirements.txt
+pip install --no-cache-dir -r requirements.txt
 
 echo "==> Pre-building starter datasets and baseline ML weights..."
 mkdir -p data/raw data/processed data/weights
