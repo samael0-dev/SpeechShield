@@ -153,7 +153,7 @@ class SocialTextCleaner:
             from ekphrasis.dicts.emoticons import emoticons
 
             return TextPreProcessor(
-                normalize=["url", "email", "percent", "money", "phone", "user", "time", "date", "number"],
+                normalize=["email", "percent", "money", "phone", "time", "date", "number"],
                 annotate={"hashtag"},
                 all_caps_tag="wrap",
                 fix_html=True,
@@ -247,6 +247,18 @@ class SocialTextCleaner:
         # Translate emojis early before punctuation stripping
         working, emojis = self.translate_emojis(working)
 
+        # Normalize URLs, obfuscated slurs, and @mentions before ekphrasis so ekphrasis
+        # does not rewrite "@ss" into "<user>" or split "$lut" / "b!tch" punctuation.
+        url_token = " zzurltokenzz " if self.replace_urls else " "
+        working = URL_PATTERN.sub(url_token, working)
+
+        # Restore obfuscated slurs before @mention replacement so "@ss" is not treated as "@user"
+        working, obfuscation_hits = self.deobfuscate_slurs(working)
+
+        mention_matches = MENTION_PATTERN.findall(working)
+        mention_token = " zzusertokenzz " if self.replace_mentions else " "
+        working = MENTION_PATTERN.sub(mention_token, working)
+
         if self._ekphrasis_processor is not None:  # pragma: no cover - optional
             try:
                 tokens = self._ekphrasis_processor.pre_process_doc(working)
@@ -257,18 +269,9 @@ class SocialTextCleaner:
                 logger.debug("ekphrasis failed on input, falling back: %s", exc)
 
         if self.replace_urls:
-            working = URL_PATTERN.sub(" <url> ", working)
-        else:
-            working = URL_PATTERN.sub(" ", working)
-
-        # Restore obfuscated slurs before @mention replacement so "@ss" is not treated as "@user"
-        working, obfuscation_hits = self.deobfuscate_slurs(working)
-
-        mention_matches = MENTION_PATTERN.findall(working)
+            working = working.replace("zzurltokenzz", "<url>")
         if self.replace_mentions:
-            working = MENTION_PATTERN.sub(" <user> ", working)
-        else:
-            working = MENTION_PATTERN.sub(" ", working)
+            working = working.replace("zzusertokenzz", "<user>")
 
         # Unpack hashtags after URLs (avoids splitting URL fragments)
         working = HASHTAG_PATTERN.sub(self.unpack_hashtag, working)
