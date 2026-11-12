@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 from collections import Counter
 from datetime import UTC, datetime
 from typing import Annotated
@@ -30,6 +31,7 @@ from src.model.classifier import PredictionResult, ToxicityClassifier
 from src.model.utils import TOXICITY_CATEGORIES, detect_hate_raid_spikes
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
 DbSession = Annotated[Session, Depends(get_db)]
 
 
@@ -128,7 +130,8 @@ async def health_check(
     db_ok = True
     try:
         db.execute(sql_text("SELECT 1"))
-    except SQLAlchemyError:
+    except Exception as exc:
+        logger.warning("Database probe failed during health check: %s", exc)
         db_ok = False
     return HealthResponse(
         status="ok" if db_ok else "degraded",

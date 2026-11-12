@@ -106,6 +106,32 @@
         return "#7c6cf6";
     };
 
+    function setApiStatus(isOnline, reason = "") {
+        const pill = document.getElementById("api-status-pill");
+        const banner = document.getElementById("api-offline-banner");
+        if (isOnline) {
+            if (pill) {
+                pill.className = "inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded-full text-xs font-semibold border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 cursor-pointer transition";
+                pill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></span><span id="api-status-text">API Online</span>`;
+                pill.title = "FastAPI backend connected (click to refresh)";
+            }
+            if (banner) {
+                banner.style.display = "none";
+                banner.classList.add("hidden");
+            }
+        } else {
+            if (pill) {
+                pill.className = "inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded-full text-xs font-semibold border border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400 cursor-pointer transition";
+                pill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0"></span><span id="api-status-text">API Offline</span>`;
+                pill.title = `Backend unreachable: ${reason || "click to retry"}`;
+            }
+            if (banner) {
+                banner.style.display = "flex";
+                banner.classList.remove("hidden");
+            }
+        }
+    }
+
     async function apiFetch(path, options = {}) {
         const isBodyMethod = options.method && !["GET", "HEAD"].includes(options.method.toUpperCase());
         const headers = {
@@ -113,15 +139,25 @@
             ...(isBodyMethod ? { "Content-Type": "application/json" } : {}),
             ...(options.headers || {}),
         };
-        const resp = await fetch(`${API_BASE}${path}`, {
-            ...options,
-            headers,
-        });
-        if (!resp.ok) {
-            const text = await resp.text();
-            throw new Error(text || `HTTP ${resp.status}`);
+        try {
+            const resp = await fetch(`${API_BASE}${path}`, {
+                ...options,
+                headers,
+            });
+            if (!resp.ok) {
+                const text = await resp.text();
+                throw new Error(text || `HTTP ${resp.status}`);
+            }
+            const data = await resp.json();
+            // Automatically mark API online upon ANY successful response
+            setApiStatus(true);
+            return data;
+        } catch (err) {
+            if (path.startsWith("/health")) {
+                setApiStatus(false, err.message);
+            }
+            throw err;
         }
-        return resp.json();
     }
 
     function applyTheme() {
@@ -143,12 +179,36 @@
         if (state.lastLogs.length > 0) renderSpikeTimelineChart(state.lastLogs);
     }
 
+    function openMobileSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const backdrop = document.getElementById("sidebar-backdrop");
+        if (!sidebar) return;
+        sidebar.classList.remove("-translate-x-full");
+        if (backdrop) backdrop.classList.remove("hidden");
+        document.body.classList.add("overflow-hidden");
+    }
+
+    function closeMobileSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const backdrop = document.getElementById("sidebar-backdrop");
+        if (!sidebar) return;
+        if (window.innerWidth < 768) {
+            sidebar.classList.add("-translate-x-full");
+        }
+        if (backdrop) backdrop.classList.add("hidden");
+        document.body.classList.remove("overflow-hidden");
+    }
+
     function toggleSidebar() {
+        if (window.innerWidth < 768) {
+            closeMobileSidebar();
+            return;
+        }
         state.sidebarCollapsed = !state.sidebarCollapsed;
         const sidebar = document.getElementById("sidebar");
         const brandBar = document.getElementById("sidebar-brand-bar");
-        sidebar.classList.toggle("w-64", !state.sidebarCollapsed);
-        sidebar.classList.toggle("w-16", state.sidebarCollapsed);
+        sidebar.classList.toggle("md:w-64", !state.sidebarCollapsed);
+        sidebar.classList.toggle("md:w-16", state.sidebarCollapsed);
         if (brandBar) {
             brandBar.classList.toggle("justify-between", !state.sidebarCollapsed);
             brandBar.classList.toggle("px-4", !state.sidebarCollapsed);
@@ -161,31 +221,15 @@
     }
 
     async function checkHealth() {
-        const pill = document.getElementById("api-status-pill");
-        const banner = document.getElementById("api-offline-banner");
         const policyPre = document.getElementById("policy-backends-json");
         try {
-            const data = await apiFetch(`/health?_=${Date.now()}`, { cache: "no-store" });
-            if (pill) {
-                pill.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400";
-                pill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-current"></span><span>API Online</span>`;
-            }
-            if (banner) {
-                banner.style.display = "none";
-                banner.classList.add("hidden");
-            }
+            const data = await apiFetch(`/health?_=${Date.now()}`);
+            setApiStatus(true);
             if (policyPre) policyPre.textContent = JSON.stringify(data, null, 2);
             return true;
         } catch (err) {
             console.warn("SpeechShield API health check failed:", err);
-            if (pill) {
-                pill.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400";
-                pill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-current"></span><span>API Offline</span>`;
-            }
-            if (banner) {
-                banner.style.display = "flex";
-                banner.classList.remove("hidden");
-            }
+            setApiStatus(false, err.message);
             if (policyPre) policyPre.textContent = `API offline: ${err.message || err}`;
             return false;
         }
@@ -494,14 +538,14 @@
                       .map(
                           (row) => `
                           <tr class="hover:bg-gray-50 dark:hover:bg-white/[0.02]">
-                              <td class="py-2.5 pr-3 font-mono text-gray-500 dark:text-[#8e95a5]">#${row.id}</td>
-                              <td class="py-2.5 pr-3 font-mono">${escapeHtml(row.platform)}</td>
-                              <td class="py-2.5 pr-3 font-mono text-gray-500 dark:text-[#8e95a5]">${escapeHtml(row.post_id)}</td>
-                              <td class="py-2.5 pr-3 font-mono">@${escapeHtml(row.author_handle)}</td>
-                              <td class="py-2.5 pr-3 max-w-[200px] truncate" title="${escapeHtml(row.raw_text)}">${escapeHtml(row.raw_text)}</td>
-                              <td class="py-2.5 pr-3 font-mono tabular-nums">${pct(row.overall_score)}</td>
-                              <td class="py-2.5 pr-3"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold ${actionPillClasses(row.action)}">${escapeHtml(row.action)}</span></td>
-                              <td class="py-2.5 font-mono text-[11px] text-gray-500 dark:text-[#8e95a5]">${escapeHtml(row.review_status)}</td>
+                              <td class="py-2.5 px-3 font-mono text-gray-500 dark:text-[#8e95a5] whitespace-nowrap">#${row.id}</td>
+                              <td class="py-2.5 px-3 font-mono whitespace-nowrap">${escapeHtml(row.platform)}</td>
+                              <td class="py-2.5 px-3 font-mono text-gray-500 dark:text-[#8e95a5] whitespace-nowrap">${escapeHtml(row.post_id)}</td>
+                              <td class="py-2.5 px-3 font-mono whitespace-nowrap">@${escapeHtml(row.author_handle)}</td>
+                              <td class="py-2.5 px-3 max-w-[260px] truncate" title="${escapeHtml(row.raw_text)}">${escapeHtml(row.raw_text)}</td>
+                              <td class="py-2.5 px-3 font-mono tabular-nums whitespace-nowrap">${pct(row.overall_score)}</td>
+                              <td class="py-2.5 px-3 whitespace-nowrap"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold ${actionPillClasses(row.action)}">${escapeHtml(row.action)}</span></td>
+                              <td class="py-2.5 px-3 font-mono text-[11px] text-gray-500 dark:text-[#8e95a5] whitespace-nowrap">${escapeHtml(row.review_status)}</td>
                           </tr>
                       `
                       )
@@ -594,6 +638,7 @@
     }
 
     async function switchView(viewName, options = {}) {
+        closeMobileSidebar();
         state.activeView = viewName;
         const meta = VIEW_META[viewName] || VIEW_META.analyzer;
         document.getElementById("breadcrumb-section").textContent = meta.section;
@@ -635,7 +680,22 @@
             applyTheme();
         });
 
-        document.getElementById("sidebar-collapse-btn").addEventListener("click", toggleSidebar);
+        document.getElementById("sidebar-collapse-btn")?.addEventListener("click", toggleSidebar);
+        document.getElementById("mobile-sidebar-toggle")?.addEventListener("click", openMobileSidebar);
+        document.getElementById("sidebar-close-btn")?.addEventListener("click", closeMobileSidebar);
+        document.getElementById("sidebar-backdrop")?.addEventListener("click", closeMobileSidebar);
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth >= 768) {
+                closeMobileSidebar();
+            }
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeMobileSidebar();
+            }
+        });
 
         document.querySelectorAll("[data-view]").forEach((btn) => {
             btn.addEventListener("click", () => {
@@ -732,6 +792,7 @@
         }
 
         function showLanding() {
+            closeMobileSidebar();
             const landing = document.getElementById("landing-hero");
             const workspace = document.getElementById("app-workspace");
             if (workspace) workspace.style.display = "none";
@@ -757,6 +818,13 @@
         const brandLogo = document.getElementById("sidebar-brand-logo");
         if (brandLogo) {
             brandLogo.addEventListener("click", showLanding);
+        }
+
+        const statusPill = document.getElementById("api-status-pill");
+        if (statusPill) {
+            statusPill.addEventListener("click", () => {
+                checkHealth();
+            });
         }
 
         // Route on initial load: open workspace if #app or ?view=app, else show landing hero

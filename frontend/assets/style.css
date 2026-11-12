@@ -63,3 +63,20 @@ html {
 .cosmic-hero-bg {
     background: radial-gradient(ellipse at 50% 35%, #2a0e4a 0%, #1a0833 42%, #0a0314 100%);
 }
+
+/* Responsive mobile and touch refinements */
+@media (max-width: 767px) {
+    #sidebar {
+        box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* Smooth touch scrolling */
+.overflow-x-auto, .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure responsive touch handling */
+button, select, input, textarea {
+    touch-action: manipulation;
+}

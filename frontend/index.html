@@ -31,7 +31,7 @@
             },
         };
     </script>
-    <link rel="stylesheet" href="./assets/style.css?v=6" />
+    <link rel="stylesheet" href="./assets/style.css?v=7" />
 </head>
 <body class="min-h-screen bg-[#f7f8fa] text-[#111827] dark:bg-[#0c0d12] dark:text-[#f3f4f6] transition-colors duration-200 antialiased">
     <!-- ================================================================= -->
@@ -59,7 +59,7 @@
         <!-- Floating Cosmic Visual Elements -->
         <div class="absolute inset-0 pointer-events-none overflow-hidden">
             <!-- 1. Floating Asteroid / Space Rock (Top Left) -->
-            <div class="absolute top-[14%] left-[3%] w-28 sm:w-40 animate-cosmic-float-1 opacity-90 drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]">
+            <div class="absolute top-[10%] sm:top-[14%] left-[2%] sm:left-[3%] w-20 sm:w-28 md:w-40 animate-cosmic-float-1 opacity-80 sm:opacity-90 drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]">
                 <svg viewBox="0 0 160 140" fill="none" class="w-full h-auto">
                     <polygon points="40,20 110,15 150,55 135,115 85,135 25,110 10,60" fill="#2d1547" stroke="#4c2277" stroke-width="2"/>
                     <polygon points="40,20 85,55 25,110 10,60" fill="#220e38"/>
@@ -72,7 +72,7 @@
             </div>
 
             <!-- 2. Floating Asteroid (Top Right) -->
-            <div class="absolute top-[8%] right-[11%] w-24 sm:w-32 animate-cosmic-float-2 opacity-85">
+            <div class="absolute top-[6%] sm:top-[8%] right-[4%] sm:right-[11%] w-16 sm:w-24 md:w-32 animate-cosmic-float-2 opacity-75 sm:opacity-85">
                 <svg viewBox="0 0 130 120" fill="none" class="w-full h-auto">
                     <polygon points="30,10 95,15 120,60 90,110 35,105 10,65" fill="#29123f" stroke="#441e69" stroke-width="2"/>
                     <polygon points="30,10 65,55 10,65" fill="#1c0b2c"/>
@@ -82,7 +82,7 @@
             </div>
 
             <!-- 3. Floating Small Asteroid (Far Right) -->
-            <div class="absolute top-[28%] right-[3%] w-20 sm:w-24 animate-cosmic-float-1 opacity-70">
+            <div class="hidden sm:block absolute top-[28%] right-[3%] w-20 sm:w-24 animate-cosmic-float-1 opacity-70">
                 <svg viewBox="0 0 100 90" fill="none" class="w-full h-auto">
                     <polygon points="25,10 80,18 95,55 65,85 20,75 5,40" fill="#27113c" stroke="#461e6c" stroke-width="1.5"/>
                     <polygon points="25,10 50,45 5,40" fill="#1a0a29"/>
@@ -91,7 +91,7 @@
             </div>
 
             <!-- 4. Floating Asteroid (Bottom Right) -->
-            <div class="absolute bottom-[22%] right-[14%] w-24 sm:w-36 animate-cosmic-float-2 opacity-80">
+            <div class="absolute bottom-[16%] sm:bottom-[22%] right-[4%] sm:right-[14%] w-18 sm:w-24 md:w-36 animate-cosmic-float-2 opacity-70 sm:opacity-80">
                 <svg viewBox="0 0 140 130" fill="none" class="w-full h-auto">
                     <polygon points="35,15 100,10 130,55 110,115 45,125 10,70" fill="#28113e" stroke="#421c66" stroke-width="2"/>
                     <polygon points="35,15 70,60 10,70" fill="#1a0a2a"/>
@@ -101,7 +101,7 @@
             </div>
 
             <!-- 5. Floating Purple Crystal Shards -->
-            <div class="absolute top-[32%] left-[34%] w-10 sm:w-14 animate-cosmic-float-1 opacity-85 rotate-[-25deg]">
+            <div class="absolute top-[32%] left-[26%] sm:left-[34%] w-8 sm:w-14 animate-cosmic-float-1 opacity-75 sm:opacity-85 rotate-[-25deg]">
                 <svg viewBox="0 0 50 100" fill="none" class="w-full h-auto">
                     <polygon points="25,0 48,50 25,100 2,50" fill="#a855f7" stroke="#e9d5ff" stroke-width="1"/>
                     <polygon points="25,0 48,50 25,100" fill="#7e22ce"/>
@@ -109,14 +109,14 @@
                 </svg>
             </div>
 
-            <div class="absolute top-[36%] left-[45%] w-7 sm:w-9 animate-cosmic-float-3 opacity-90 rotate-[15deg]">
+            <div class="hidden sm:block absolute top-[36%] left-[45%] w-7 sm:w-9 animate-cosmic-float-3 opacity-90 rotate-[15deg]">
                 <svg viewBox="0 0 40 90" fill="none" class="w-full h-auto">
                     <polygon points="20,0 38,45 20,90 2,45" fill="#d946ef" stroke="#fae8ff" stroke-width="1"/>
                     <polygon points="20,0 38,45 20,90" fill="#a21caf"/>
                 </svg>
             </div>
 
-            <div class="absolute bottom-[36%] left-[29%] w-8 sm:w-11 animate-cosmic-float-2 opacity-80 rotate-[35deg]">
+            <div class="hidden sm:block absolute bottom-[36%] left-[29%] w-8 sm:w-11 animate-cosmic-float-2 opacity-80 rotate-[35deg]">
                 <svg viewBox="0 0 45 95" fill="none" class="w-full h-auto">
                     <polygon points="22,0 42,48 22,95 2,48" fill="#c084fc" stroke="#f3e8ff" stroke-width="1"/>
                     <polygon points="22,0 42,48 22,95" fill="#9333ea"/>
@@ -124,7 +124,7 @@
             </div>
 
             <!-- Small Lime Floating Crystal (Upper Right) -->
-            <div class="absolute top-[28%] right-[23%] w-10 sm:w-14 animate-cosmic-float-2 opacity-95 rotate-[-18deg] drop-shadow-[0_0_15px_rgba(163,230,53,0.7)]">
+            <div class="hidden sm:block absolute top-[28%] right-[23%] w-10 sm:w-14 animate-cosmic-float-2 opacity-95 rotate-[-18deg] drop-shadow-[0_0_15px_rgba(163,230,53,0.7)]">
                 <svg viewBox="0 0 60 40" fill="none" class="w-full h-auto">
                     <polygon points="5,15 35,5 55,25 25,35" fill="#bef264" stroke="#d9f99d" stroke-width="1.5"/>
                     <polygon points="5,15 35,5 55,25" fill="#d9f99d"/>
@@ -133,7 +133,7 @@
             </div>
 
             <!-- 6. HIGH-TECH OBSERVATION POD / CAPSULE (Center Right) -->
-            <div class="absolute top-[20%] right-[18%] sm:right-[22%] md:right-[26%] w-48 sm:w-64 md:w-80 animate-cosmic-float-3 drop-shadow-[0_20px_45px_rgba(0,0,0,0.8)] opacity-95">
+            <div class="absolute top-[12%] sm:top-[16%] md:top-[20%] right-[2%] sm:right-[16%] md:right-[26%] w-32 sm:w-56 md:w-80 animate-cosmic-float-3 drop-shadow-[0_20px_45px_rgba(0,0,0,0.8)] opacity-35 sm:opacity-75 md:opacity-95">
                 <svg viewBox="0 0 280 280" fill="none" class="w-full h-auto">
                     <defs>
                         <radialGradient id="capsuleGrad" cx="35%" cy="35%" r="65%">
@@ -168,7 +168,7 @@
             </div>
 
             <!-- 7. GIANT GLOWING LIME POLYHEDRON (Bottom Left) -->
-            <div class="absolute bottom-[4%] sm:bottom-[7%] left-[5%] sm:left-[9%] w-36 sm:w-52 md:w-60 animate-cosmic-float-1 drop-shadow-[0_0_35px_rgba(163,230,53,0.55)]">
+            <div class="absolute bottom-[2%] sm:bottom-[6%] left-[2%] sm:left-[8%] w-24 sm:w-44 md:w-60 animate-cosmic-float-1 drop-shadow-[0_0_20px_rgba(163,230,53,0.35)] sm:drop-shadow-[0_0_35px_rgba(163,230,53,0.55)] opacity-50 sm:opacity-85 md:opacity-100 pointer-events-none">
                 <svg viewBox="0 0 220 220" fill="none" class="w-full h-auto">
                     <polygon points="110,25 65,85 155,85" fill="#bef264" stroke="#d9f99d" stroke-width="1.5"/>
                     <polygon points="110,25 65,85 20,65" fill="#a3e635" stroke="#d9f99d" stroke-width="1.5"/>
@@ -186,7 +186,7 @@
             </div>
 
             <!-- 8. CURVED PLANET HORIZON AT BASE -->
-            <div class="absolute -bottom-16 sm:-bottom-24 left-[-15%] right-[-15%] h-56 sm:h-72 pointer-events-none">
+            <div class="absolute -bottom-10 sm:-bottom-20 md:-bottom-24 left-[-20%] sm:left-[-15%] right-[-20%] sm:right-[-15%] h-44 sm:h-64 md:h-72 pointer-events-none">
                 <svg viewBox="0 0 1400 300" fill="none" preserveAspectRatio="none" class="w-full h-full">
                     <defs>
                         <linearGradient id="planetAtmo" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -206,48 +206,48 @@
         </div>
 
         <!-- Hero Top Navigation Bar -->
-        <header class="relative z-20 max-w-7xl w-full mx-auto px-6 py-6 sm:py-8 flex items-center justify-between">
+        <header class="relative z-20 max-w-7xl w-full mx-auto px-4 sm:px-6 py-4 sm:py-7 flex items-center justify-between">
             <!-- Brand Logo -->
-            <div class="flex items-center gap-3 cursor-pointer enter-app-trigger" title="Launch SpeechShield Platform">
-                <div class="w-8 h-8 rounded-lg bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.4)]">
-                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+            <div class="flex items-center gap-2.5 sm:gap-3 cursor-pointer enter-app-trigger" title="Launch SpeechShield Platform">
+                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.4)] shrink-0">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2L4 5.5v6.2c0 5.3 3.4 10.2 8 11.3 4.6-1.1 8-6 8-11.3V5.5L12 2z"/>
                     </svg>
                 </div>
-                <div class="flex items-baseline gap-2">
-                    <span class="font-bold text-lg sm:text-xl tracking-tight text-white">SpeechShield</span>
-                    <span class="text-xs sm:text-sm font-medium text-purple-300/80 tracking-wide">AI Guardian</span>
+                <div class="flex items-baseline gap-1.5 sm:gap-2">
+                    <span class="font-bold text-base sm:text-xl tracking-tight text-white">SpeechShield</span>
+                    <span class="text-[11px] sm:text-sm font-medium text-purple-300/80 tracking-wide">AI Guardian</span>
                 </div>
             </div>
 
             <!-- Top Right Nav Links -->
-            <div class="flex items-center gap-3 sm:gap-6 text-xs sm:text-sm font-medium">
+            <div class="flex items-center gap-2.5 sm:gap-6 text-xs sm:text-sm font-medium">
                 <a href="/docs" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-block text-purple-200/70 hover:text-white transition-colors duration-200">
                     Visit API Docs
                 </a>
-                <button type="button" class="enter-app-trigger px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium text-xs sm:text-sm tracking-wide backdrop-blur transition-all duration-200 shadow-[0_0_20px_rgba(255,255,255,0.08)] hover:shadow-[0_0_25px_rgba(168,85,247,0.3)]">
+                <button type="button" class="enter-app-trigger px-3.5 sm:px-5 py-1.5 sm:py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium text-xs sm:text-sm tracking-wide backdrop-blur transition-all duration-200 shadow-[0_0_20px_rgba(255,255,255,0.08)] hover:shadow-[0_0_25px_rgba(168,85,247,0.3)]">
                     Request a demo
                 </button>
             </div>
         </header>
 
         <!-- Main Hero Centerpiece -->
-        <div class="relative z-20 max-w-5xl w-full mx-auto px-6 py-12 sm:py-20 text-center flex flex-col items-center justify-center flex-1">
-            <!-- Headline matching user image -->
-            <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold text-white tracking-tight leading-[1.12] max-w-4xl drop-shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
-                Know Your Data. Control Your AI.<br class="hidden sm:inline" />
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-100 via-white to-purple-200">Secure the Unknown.</span>
+        <div class="relative z-20 max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-16 md:py-20 text-center flex flex-col items-center justify-center flex-1">
+            <!-- Headline matching user design -->
+            <h1 class="text-2xl sm:text-4xl md:text-5xl lg:text-[66px] font-bold text-white tracking-tight leading-[1.15] max-w-4xl drop-shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
+                Know the Context. Empower the Model.<br class="hidden sm:inline" />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-100 via-white to-purple-200">Silence the Toxicity.</span>
             </h1>
 
-            <p class="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg text-purple-200/75 max-w-2xl font-normal leading-relaxed drop-shadow">
+            <p class="mt-3 sm:mt-6 text-xs sm:text-base md:text-lg text-purple-200/80 max-w-xl sm:max-w-2xl px-2 font-normal leading-relaxed drop-shadow">
                 Real-time social media toxicity detection, dialect normalization, and automated hate-raid intelligence.
             </p>
 
             <!-- Center Enter / Mission CTA Button -->
-            <div class="mt-8 sm:mt-10">
-                <button id="enter-mission-btn" type="button" class="enter-app-trigger group relative inline-flex items-center gap-3.5 px-7 py-3.5 sm:px-8 sm:py-4 rounded-full bg-[#0d0717]/95 hover:bg-[#180a2b] border border-white/25 hover:border-purple-400/80 shadow-[0_0_35px_rgba(168,85,247,0.45)] hover:shadow-[0_0_55px_rgba(168,85,247,0.7)] text-white font-semibold text-sm sm:text-base tracking-wide transition-all duration-300">
-                    <span>Begin Your Mission</span>
-                    <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs sm:text-sm shadow transition-transform duration-300 group-hover:translate-x-1.5">
+            <div class="mt-6 sm:mt-10">
+                <button id="enter-mission-btn" type="button" class="enter-app-trigger group relative inline-flex items-center gap-3 sm:gap-3.5 px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-[#0d0717]/95 hover:bg-[#180a2b] border border-white/25 hover:border-purple-400/80 shadow-[0_0_35px_rgba(168,85,247,0.45)] hover:shadow-[0_0_55px_rgba(168,85,247,0.7)] text-white font-semibold text-xs sm:text-base tracking-wide transition-all duration-300">
+                    <span>ENTER</span>
+                    <span class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs sm:text-sm shadow transition-transform duration-300 group-hover:translate-x-1.5">
                         &rarr;
                     </span>
                 </button>
@@ -255,7 +255,7 @@
         </div>
 
         <!-- Bottom Footer Info -->
-        <footer class="relative z-20 max-w-7xl w-full mx-auto px-6 py-6 flex items-center justify-between text-[11px] sm:text-xs text-purple-300/60 font-medium">
+        <footer class="relative z-20 max-w-7xl w-full mx-auto px-4 sm:px-6 py-4 sm:py-6 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 text-[10px] sm:text-xs text-purple-300/60 font-medium text-center sm:text-left">
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 <span>Hybrid ML Fast-Pass &bull; BERTweet Core</span>
@@ -269,13 +269,16 @@
     <!-- ================================================================= -->
     <!-- SPEECHSHIELD MODERATION WORKSPACE                                 -->
     <!-- ================================================================= -->
-    <div id="app-workspace" class="min-h-screen flex" style="display: none;">
-        <!-- Left Sidebar Navigation (Octave-style) -->
-        <aside id="sidebar" class="w-64 shrink-0 sticky top-0 h-screen overflow-y-auto flex flex-col justify-between bg-white dark:bg-[#11131a] border-r border-gray-200 dark:border-white/[0.08] transition-all duration-200">
+    <div id="app-workspace" class="min-h-screen flex relative" style="display: none;">
+        <!-- Mobile Sidebar Backdrop Overlay -->
+        <div id="sidebar-backdrop" class="fixed inset-0 bg-black/60 z-40 backdrop-blur-sm hidden md:hidden transition-opacity duration-200" aria-hidden="true"></div>
+
+        <!-- Left Sidebar Navigation (Desktop: sticky/collapsible | Mobile: off-canvas drawer) -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 max-w-[80vw] -translate-x-full md:translate-x-0 md:static md:w-64 md:h-screen md:shrink-0 overflow-y-auto flex flex-col justify-between bg-white dark:bg-[#11131a] border-r border-gray-200 dark:border-white/[0.08] transition-transform duration-200 ease-in-out md:transition-all shadow-xl md:shadow-none">
             <div>
                 <!-- Brand Bar -->
                 <div id="sidebar-brand-bar" class="h-14 px-4 flex items-center justify-between border-b border-gray-200 dark:border-white/[0.06]">
-                    <div id="sidebar-brand-logo" class="sidebar-label flex items-center gap-2.5 min-w-0 cursor-pointer hover:opacity-80 transition" title="Return to Mission Landing">
+                    <div id="sidebar-brand-logo" class="sidebar-label flex items-center gap-2.5 min-w-0 cursor-pointer hover:opacity-80 transition" title="Return to Home">
                         <span class="inline-flex items-center justify-center w-6 h-6 rounded-md bg-accent-500/15 text-accent-500 dark:text-accent-400 shrink-0">
                             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                 <path d="M12 2L4 5.5v6.2c0 5.3 3.4 10.2 8 11.3 4.6-1.1 8-6 8-11.3V5.5L12 2z"/>
@@ -283,10 +286,18 @@
                         </span>
                         <span class="font-semibold text-sm tracking-tight text-gray-900 dark:text-white truncate">SpeechShield</span>
                     </div>
-                    <button id="sidebar-collapse-btn" type="button" title="Toggle sidebar" class="p-1.5 rounded-md text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/[0.06] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-500/60 transition shrink-0">
+                    <!-- Desktop sidebar collapse button -->
+                    <button id="sidebar-collapse-btn" type="button" title="Toggle sidebar" class="hidden md:inline-flex p-1.5 rounded-md text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/[0.06] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-500/60 transition shrink-0">
                         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                             <rect x="3" y="4" width="18" height="16" rx="2"/>
                             <path d="M9 4v16"/>
+                        </svg>
+                    </button>
+                    <!-- Mobile sidebar close button -->
+                    <button id="sidebar-close-btn" type="button" title="Close menu" aria-label="Close navigation" class="md:hidden p-1.5 rounded-md text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/[0.06] focus:outline-none transition shrink-0">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
                         </svg>
                     </button>
                 </div>
@@ -366,47 +377,58 @@
         <!-- Main Workspace Content -->
         <div class="flex-1 min-w-0 flex flex-col">
             <!-- Top Bar -->
-            <header class="h-14 px-6 flex items-center justify-between gap-4 border-b border-gray-200 dark:border-white/[0.08] bg-white/70 dark:bg-[#0c0d12]/80 backdrop-blur">
-                <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-[#8e95a5]">
-                    <span id="breadcrumb-section">Moderation</span>
-                    <span>&rsaquo;</span>
-                    <span id="breadcrumb-page" class="font-medium text-gray-900 dark:text-gray-200">Live Text Analyzer</span>
-                </div>
-                <div class="flex items-center gap-2.5">
-                    <button id="exit-to-landing-btn" type="button" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 hover:bg-purple-500/20 transition" title="Return to Mission Landing">
-                        <span>🪐</span>
-                        <span>Mission Hub</span>
+            <header class="h-14 px-3 sm:px-6 flex items-center justify-between gap-2 sm:gap-4 border-b border-gray-200 dark:border-white/[0.08] bg-white/70 dark:bg-[#0c0d12]/80 backdrop-blur sticky top-0 z-30">
+                <div class="flex items-center gap-2 min-w-0 text-xs text-gray-500 dark:text-[#8e95a5]">
+                    <!-- Mobile Hamburger Toggle -->
+                    <button id="mobile-sidebar-toggle" type="button" title="Open navigation" aria-label="Open navigation menu" class="md:hidden p-1.5 -ml-1 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/[0.06] transition shrink-0">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
                     </button>
-                    <span id="api-status-pill" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400">
-                        <span class="w-1.5 h-1.5 rounded-full bg-current"></span>
-                        <span>Checking API...</span>
+                    <span id="breadcrumb-section" class="hidden sm:inline">Moderation</span>
+                    <span class="hidden sm:inline">&rsaquo;</span>
+                    <span id="breadcrumb-page" class="font-medium text-gray-900 dark:text-gray-200 truncate max-w-[120px] sm:max-w-none text-xs sm:text-sm">Live Text Analyzer</span>
+                </div>
+                <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+                    <button id="exit-to-landing-btn" type="button" class="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded-lg text-xs font-medium bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 hover:bg-purple-500/20 transition" title="Return to Home">
+                        <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            <polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                        <span class="hidden xs:inline sm:inline">Home</span>
+                    </button>
+                    <span id="api-status-pill" class="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded-full text-xs font-semibold border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 cursor-pointer" title="Checking API status...">
+                        <span class="w-1.5 h-1.5 rounded-full bg-current shrink-0"></span>
+                        <span id="api-status-text">Checking...</span>
                     </span>
-                    <button id="theme-toggle-btn" type="button" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-[#1c1f29] transition">
+                    <button id="theme-toggle-btn" type="button" class="inline-flex items-center gap-1.5 px-2 sm:px-2.5 py-1 rounded-lg text-xs font-medium bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-[#1c1f29] transition">
                         <span id="theme-icon">☀️</span>
-                        <span id="theme-label">Light</span>
+                        <span id="theme-label" class="hidden sm:inline">Light</span>
                     </button>
                 </div>
             </header>
 
-            <main class="flex-1 max-w-6xl w-full mx-auto px-6 py-6">
+            <main class="flex-1 max-w-6xl w-full mx-auto px-3.5 sm:px-6 py-4 sm:py-6">
                 <!-- Page Title -->
-                <div class="mb-5">
-                    <h1 id="page-heading" class="text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">Live Text Analyzer</h1>
-                    <p id="page-subheading" class="text-sm text-gray-500 dark:text-[#8e95a5] mt-1">
+                <div class="mb-4 sm:mb-5">
+                    <h1 id="page-heading" class="text-xl sm:text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">Live Text Analyzer</h1>
+                    <p id="page-subheading" class="text-xs sm:text-sm text-gray-500 dark:text-[#8e95a5] mt-1">
                         Analyze social posts with dialect cleaning, fast-pass filtering, and calibrated toxicity scoring.
                     </p>
                 </div>
 
                 <!-- API Offline Notice -->
-                <div id="api-offline-banner" class="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-xs text-amber-700 dark:text-amber-300 flex items-center justify-between gap-3" style="display: none;">
+                <div id="api-offline-banner" class="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3.5 sm:px-4 py-3 text-xs text-amber-700 dark:text-amber-300 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3" style="display: none;">
                     <span>FastAPI backend unreachable or spinning up (Render free tier instances may take ~30s to wake from sleep).</span>
-                    <button id="retry-health-btn" type="button" class="px-2.5 py-1 rounded-md font-medium bg-amber-500/20 hover:bg-amber-500/30 transition">Retry</button>
+                    <button id="retry-health-btn" type="button" class="self-start sm:self-auto px-2.5 py-1 rounded-md font-medium bg-amber-500/20 hover:bg-amber-500/30 transition shrink-0">Retry</button>
                 </div>
 
                 <!-- VIEW 1: LIVE TEXT ANALYZER -->
                 <section id="view-analyzer" class="view-panel space-y-4">
-                    <form id="analyze-form" class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 sm:p-5">
-                        <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                    <form id="analyze-form" class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3.5 sm:p-5">
+                        <div class="grid grid-cols-1 lg:grid-cols-4 gap-3.5 sm:gap-4">
                             <div class="lg:col-span-3">
                                 <label for="comment-input" class="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5] mb-2">
                                     Social Post or Comment
@@ -434,14 +456,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
-                            <div class="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-[#8e95a5]">
-                                <span>Quick samples:</span>
-                                <button type="button" class="sample-btn px-2.5 py-1 rounded-md bg-gray-100 dark:bg-[#1c1f29] hover:bg-gray-200 dark:hover:bg-[#252936] transition" data-sample="GG everyone! Really enjoyed the stream today 🙌🔥 #ProGaming">Safe banter</button>
-                                <button type="button" class="sample-btn px-2.5 py-1 rounded-md bg-gray-100 dark:bg-[#1c1f29] hover:bg-gray-200 dark:hover:bg-[#252936] transition" data-sample="You are such a clown 🤡">Borderline (60–80%)</button>
-                                <button type="button" class="sample-btn px-2.5 py-1 rounded-md bg-gray-100 dark:bg-[#1c1f29] hover:bg-gray-200 dark:hover:bg-[#252936] transition" data-sample="Shut up you @ss $lut #IdentityHate I will hurt you">High toxicity</button>
+                        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div class="flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs text-gray-500 dark:text-[#8e95a5]">
+                                <span class="text-[11px] sm:text-xs">Quick samples:</span>
+                                <button type="button" class="sample-btn px-2.5 py-1 rounded-md bg-gray-100 dark:bg-[#1c1f29] hover:bg-gray-200 dark:hover:bg-[#252936] text-[11px] sm:text-xs transition" data-sample="GG everyone! Really enjoyed the stream today 🙌🔥 #ProGaming">Safe banter</button>
+                                <button type="button" class="sample-btn px-2.5 py-1 rounded-md bg-gray-100 dark:bg-[#1c1f29] hover:bg-gray-200 dark:hover:bg-[#252936] text-[11px] sm:text-xs transition" data-sample="You are such a clown 🤡">Borderline (60–80%)</button>
+                                <button type="button" class="sample-btn px-2.5 py-1 rounded-md bg-gray-100 dark:bg-[#1c1f29] hover:bg-gray-200 dark:hover:bg-[#252936] text-[11px] sm:text-xs transition" data-sample="Shut up you @ss $lut #IdentityHate I will hurt you">High toxicity</button>
                             </div>
-                            <button id="analyze-submit-btn" type="submit" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-accent-500 hover:bg-accent-600 text-white shadow-sm transition">
+                            <button id="analyze-submit-btn" type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 rounded-lg text-sm font-semibold bg-accent-500 hover:bg-accent-600 text-white shadow-sm transition">
                                 Analyze Comment
                             </button>
                         </div>
@@ -449,8 +471,8 @@
 
                     <!-- Analysis Results -->
                     <div id="analyzer-results" class="hidden space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 flex flex-col justify-between gap-3">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
+                            <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3.5 sm:p-4 flex flex-col justify-between gap-3">
                                 <div>
                                     <div class="flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-gray-100">
                                         <span>⚡</span>
@@ -464,7 +486,7 @@
                                 </div>
                             </div>
 
-                            <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 flex flex-col justify-between gap-3">
+                            <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3.5 sm:p-4 flex flex-col justify-between gap-3">
                                 <div>
                                     <div class="flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-gray-100">
                                         <span>🧹</span>
@@ -479,24 +501,26 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-                            <div class="lg:col-span-7 rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 sm:p-5">
-                                <div class="flex items-center justify-between mb-3">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-4">
+                            <div class="lg:col-span-7 rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3.5 sm:p-5">
+                                <div class="flex items-center justify-between gap-2 mb-3">
                                     <div>
                                         <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-100">Category Toxicity Profile</h2>
-                                        <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-0.5">Multi-label probability distribution vs 60% review threshold</p>
+                                        <p class="text-[11px] sm:text-xs text-gray-500 dark:text-[#8e95a5] mt-0.5">Multi-label probability distribution vs 60% review threshold</p>
                                     </div>
-                                    <span class="text-xs font-mono text-amber-500">--- 60% Review</span>
+                                    <span class="text-[11px] sm:text-xs font-mono text-amber-500 shrink-0">--- 60% Review</span>
                                 </div>
-                                <div id="category-bar-chart" class="relative w-full"></div>
+                                <div class="overflow-x-auto -mx-1 sm:mx-0">
+                                    <div id="category-bar-chart" class="min-w-[320px] sm:min-w-0 relative w-full"></div>
+                                </div>
                             </div>
 
-                            <div class="lg:col-span-5 rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 sm:p-5 flex flex-col justify-between gap-4">
+                            <div class="lg:col-span-5 rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3.5 sm:p-5 flex flex-col justify-between gap-4">
                                 <div>
                                     <div class="flex items-center justify-between gap-2 mb-4">
                                         <div>
                                             <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-100">Dimension Breakdown</h2>
-                                            <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-0.5">Per-category confidence meters</p>
+                                            <p class="text-[11px] sm:text-xs text-gray-500 dark:text-[#8e95a5] mt-0.5">Per-category confidence meters</p>
                                         </div>
                                         <span id="dimension-verdict-badge" class="px-2.5 py-1 rounded-full text-xs font-semibold tabular-nums"></span>
                                     </div>
@@ -514,7 +538,7 @@
 
                 <!-- VIEW 2: BORDERLINE REVIEW QUEUE -->
                 <section id="view-review" class="view-panel hidden space-y-4">
-                    <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3">
+                    <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3.5 sm:p-5 flex flex-wrap items-center justify-between gap-2.5 sm:gap-3">
                         <div>
                             <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-100">Human-in-the-Loop Borderline Queue</h2>
                             <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-0.5">Comments scoring in the 60%–80% confidence band awaiting moderator decision</p>
@@ -529,8 +553,8 @@
 
                 <!-- VIEW 3: HATE-RAID & SPIKE MONITOR -->
                 <section id="view-monitor" class="view-panel hidden space-y-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 flex flex-col justify-between gap-3">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3.5 sm:p-4 flex flex-col justify-between gap-3">
                             <div>
                                 <div class="flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-gray-100">
                                     <span id="spike-finding-icon">🛡️</span>
@@ -544,7 +568,7 @@
                             </div>
                         </div>
 
-                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 flex flex-col justify-between gap-3">
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3.5 sm:p-4 flex flex-col justify-between gap-3">
                             <div>
                                 <div class="flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-gray-100">
                                     <span>📊</span>
@@ -559,75 +583,77 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4">
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3 sm:p-4">
                             <div class="flex items-center justify-between">
-                                <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5]">Processed</span>
-                                <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-gray-100 dark:bg-[#1c1f29] text-gray-600 dark:text-[#8e95a5]">Total</span>
+                                <span class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5]">Processed</span>
+                                <span class="px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-gray-100 dark:bg-[#1c1f29] text-gray-600 dark:text-[#8e95a5]">Total</span>
                             </div>
-                            <div id="kpi-total" class="text-2xl font-bold tabular-nums mt-2">0</div>
+                            <div id="kpi-total" class="text-xl sm:text-2xl font-bold tabular-nums mt-1.5 sm:mt-2">0</div>
                         </div>
-                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4">
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3 sm:p-4">
                             <div class="flex items-center justify-between">
-                                <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5]">Toxic Detected</span>
-                                <span id="kpi-toxic-pill" class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-500/15 text-amber-600 dark:text-amber-400">0%</span>
+                                <span class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5]">Toxic</span>
+                                <span id="kpi-toxic-pill" class="px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-amber-500/15 text-amber-600 dark:text-amber-400">0%</span>
                             </div>
-                            <div id="kpi-toxic" class="text-2xl font-bold tabular-nums mt-2">0</div>
+                            <div id="kpi-toxic" class="text-xl sm:text-2xl font-bold tabular-nums mt-1.5 sm:mt-2">0</div>
                         </div>
-                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4">
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3 sm:p-4">
                             <div class="flex items-center justify-between">
-                                <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5]">Auto-Blocked</span>
-                                <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-red-500/15 text-red-600 dark:text-red-400">&gt; 80%</span>
+                                <span class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5]">Blocked</span>
+                                <span class="px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-red-500/15 text-red-600 dark:text-red-400">&gt; 80%</span>
                             </div>
-                            <div id="kpi-blocked" class="text-2xl font-bold tabular-nums mt-2">0</div>
+                            <div id="kpi-blocked" class="text-xl sm:text-2xl font-bold tabular-nums mt-1.5 sm:mt-2">0</div>
                         </div>
-                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4">
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3 sm:p-4">
                             <div class="flex items-center justify-between">
-                                <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5]">Pending Review</span>
-                                <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-500/15 text-amber-600 dark:text-amber-400">60–80%</span>
+                                <span class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5]">Review</span>
+                                <span class="px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-amber-500/15 text-amber-600 dark:text-amber-400">60–80%</span>
                             </div>
-                            <div id="kpi-pending" class="text-2xl font-bold tabular-nums mt-2">0</div>
+                            <div id="kpi-pending" class="text-xl sm:text-2xl font-bold tabular-nums mt-1.5 sm:mt-2">0</div>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-                        <div class="lg:col-span-8 rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 sm:p-5">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-4">
+                        <div class="lg:col-span-8 rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3.5 sm:p-5">
                             <div class="flex items-center justify-between gap-2 mb-3">
                                 <div>
                                     <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-100">Toxicity Over Time</h2>
-                                    <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-0.5">Comment toxicity trajectory with 60% review and 80% block thresholds</p>
+                                    <p class="text-[11px] sm:text-xs text-gray-500 dark:text-[#8e95a5] mt-0.5">Comment trajectory with 60% review and 80% block thresholds</p>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <span id="avg-score-pill" class="px-2.5 py-1 rounded-full text-xs font-semibold font-mono bg-accent-500/15 text-accent-600 dark:text-accent-400">Avg 0.0%</span>
-                                    <button id="refresh-monitor-btn" type="button" class="px-2.5 py-1 rounded-lg text-xs font-medium bg-gray-100 dark:bg-[#1c1f29] hover:bg-gray-200 dark:hover:bg-[#252936] border border-gray-200 dark:border-white/[0.08] transition">↻</button>
+                                    <span id="avg-score-pill" class="px-2.5 py-1 rounded-full text-xs font-semibold font-mono bg-accent-500/15 text-accent-600 dark:text-accent-400 shrink-0">Avg 0.0%</span>
+                                    <button id="refresh-monitor-btn" type="button" class="px-2.5 py-1 rounded-lg text-xs font-medium bg-gray-100 dark:bg-[#1c1f29] hover:bg-gray-200 dark:hover:bg-[#252936] border border-gray-200 dark:border-white/[0.08] transition shrink-0">↻</button>
                                 </div>
                             </div>
-                            <div id="spike-timeline-chart" class="relative w-full"></div>
+                            <div class="overflow-x-auto -mx-1 sm:mx-0">
+                                <div id="spike-timeline-chart" class="min-w-[320px] sm:min-w-0 relative w-full"></div>
+                            </div>
                         </div>
 
-                        <div class="lg:col-span-4 rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 sm:p-5">
+                        <div class="lg:col-span-4 rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3.5 sm:p-5">
                             <div class="mb-4">
                                 <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-100">Category Share</h2>
-                                <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-0.5">Share of flagged occurrences</p>
+                                <p class="text-[11px] sm:text-xs text-gray-500 dark:text-[#8e95a5] mt-0.5">Share of flagged occurrences</p>
                             </div>
                             <div id="monitor-category-meters" class="space-y-3"></div>
                         </div>
                     </div>
 
-                    <div id="hate-raid-card" class="hidden rounded-xl bg-white dark:bg-[#14161d] border border-red-500/30 p-4 sm:p-5">
+                    <div id="hate-raid-card" class="hidden rounded-xl bg-white dark:bg-[#14161d] border border-red-500/30 p-3.5 sm:p-5">
                         <div class="flex items-center justify-between mb-3">
                             <h2 class="text-sm font-semibold text-red-600 dark:text-red-400">Active Hate-Raid Alerts</h2>
                             <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-500/15 text-red-600 dark:text-red-400">Thread Spike</span>
                         </div>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-xs">
+                        <div class="overflow-x-auto -mx-3.5 sm:mx-0 px-3.5 sm:px-0">
+                            <table class="w-full min-w-[500px] text-left text-xs">
                                 <thead class="text-[11px] uppercase tracking-wider text-gray-500 dark:text-[#8e95a5] border-b border-gray-200 dark:border-white/[0.08]">
                                     <tr>
-                                        <th class="py-2 pr-4">Post ID</th>
-                                        <th class="py-2 pr-4">Toxic / Total</th>
-                                        <th class="py-2 pr-4">Toxic Ratio</th>
-                                        <th class="py-2 pr-4">Avg Score</th>
-                                        <th class="py-2">Alert Level</th>
+                                        <th class="py-2 pr-4 whitespace-nowrap">Post ID</th>
+                                        <th class="py-2 pr-4 whitespace-nowrap">Toxic / Total</th>
+                                        <th class="py-2 pr-4 whitespace-nowrap">Toxic Ratio</th>
+                                        <th class="py-2 pr-4 whitespace-nowrap">Avg Score</th>
+                                        <th class="py-2 whitespace-nowrap">Alert Level</th>
                                     </tr>
                                 </thead>
                                 <tbody id="hate-raid-tbody" class="divide-y divide-gray-100 dark:divide-white/[0.06] tabular-nums"></tbody>
@@ -638,8 +664,8 @@
 
                 <!-- VIEW 4: MODERATION LOGS -->
                 <section id="view-logs" class="view-panel hidden space-y-4">
-                    <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 sm:p-5">
-                        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3.5 sm:p-5">
+                        <div class="flex flex-wrap items-center justify-between gap-2.5 sm:gap-3 mb-4">
                             <div class="flex flex-wrap items-center gap-1.5">
                                 <button type="button" data-filter="" class="log-filter-btn px-3 py-1 rounded-lg text-xs font-medium bg-accent-500/15 text-accent-600 dark:text-accent-400 border border-accent-500/30">All</button>
                                 <button type="button" data-filter="allow" class="log-filter-btn px-3 py-1 rounded-lg text-xs font-medium bg-gray-100 dark:bg-[#1c1f29] text-gray-600 dark:text-[#8e95a5] border border-gray-200 dark:border-white/[0.08]">Allow</button>
@@ -651,18 +677,18 @@
                                 <button id="refresh-logs-btn" type="button" class="px-2.5 py-1 rounded-lg text-xs font-medium bg-gray-100 dark:bg-[#1c1f29] hover:bg-gray-200 dark:hover:bg-[#252936] border border-gray-200 dark:border-white/[0.08] transition">↻ Refresh</button>
                             </div>
                         </div>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-xs">
+                        <div class="overflow-x-auto -mx-3.5 sm:mx-0 px-3.5 sm:px-0">
+                            <table class="w-full min-w-[680px] text-left text-xs">
                                 <thead class="text-[11px] uppercase tracking-wider text-gray-500 dark:text-[#8e95a5] border-b border-gray-200 dark:border-white/[0.08]">
                                     <tr>
-                                        <th class="py-2.5 pr-3">ID</th>
-                                        <th class="py-2.5 pr-3">Platform</th>
-                                        <th class="py-2.5 pr-3">Post</th>
-                                        <th class="py-2.5 pr-3">Author</th>
-                                        <th class="py-2.5 pr-3">Comment</th>
-                                        <th class="py-2.5 pr-3">Score</th>
-                                        <th class="py-2.5 pr-3">Action</th>
-                                        <th class="py-2.5">Review</th>
+                                        <th class="py-2.5 px-3 whitespace-nowrap">ID</th>
+                                        <th class="py-2.5 px-3 whitespace-nowrap">Platform</th>
+                                        <th class="py-2.5 px-3 whitespace-nowrap">Post</th>
+                                        <th class="py-2.5 px-3 whitespace-nowrap">Author</th>
+                                        <th class="py-2.5 px-3">Comment</th>
+                                        <th class="py-2.5 px-3 whitespace-nowrap">Score</th>
+                                        <th class="py-2.5 px-3 whitespace-nowrap">Action</th>
+                                        <th class="py-2.5 px-3 whitespace-nowrap">Review</th>
                                     </tr>
                                 </thead>
                                 <tbody id="logs-tbody" class="divide-y divide-gray-100 dark:divide-white/[0.06]"></tbody>
@@ -673,29 +699,29 @@
 
                 <!-- VIEW 5: THRESHOLD & POLICY -->
                 <section id="view-policy" class="view-panel hidden space-y-4">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4">
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3.5 sm:p-4">
                             <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-500">Auto-Allow (&lt; 60%)</span>
-                            <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-3 leading-relaxed">Low-toxicity posts and friendly banter pass immediately; scores under 20% short-circuit via the fast-pass baseline filter.</p>
+                            <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-2.5 leading-relaxed">Low-toxicity posts and friendly banter pass immediately; scores under 20% short-circuit via the fast-pass baseline filter.</p>
                         </div>
-                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4">
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3.5 sm:p-4">
                             <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-500">Human Review (60%–80%)</span>
-                            <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-3 leading-relaxed">Borderline posts are held in the Borderline Queue so moderators can confirm toxicity or approve benign slang in context.</p>
+                            <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-2.5 leading-relaxed">Borderline posts are held in the Borderline Queue so moderators can confirm toxicity or approve benign slang in context.</p>
                         </div>
-                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4">
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3.5 sm:p-4">
                             <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-500/15 text-red-500">Auto-Block (&gt; 80%)</span>
-                            <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-3 leading-relaxed">High-confidence abuse, threats (&ge; 70%), and identity hate (&ge; 75%) are blocked immediately and logged.</p>
+                            <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-2.5 leading-relaxed">High-confidence abuse, threats (&ge; 70%), and identity hate (&ge; 75%) are blocked immediately and logged.</p>
                         </div>
                     </div>
-                    <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 sm:p-5">
+                    <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-3.5 sm:p-5">
                         <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">Active ML Backends</h2>
-                        <pre id="policy-backends-json" class="text-xs font-mono text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-[#0c0d12] rounded-lg p-3 border border-gray-200 dark:border-white/[0.06]">Loading...</pre>
+                        <pre id="policy-backends-json" class="text-[11px] sm:text-xs font-mono text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-[#0c0d12] rounded-lg p-3 border border-gray-200 dark:border-white/[0.06] overflow-x-auto">Loading...</pre>
                     </div>
                 </section>
             </main>
         </div>
     </div>
 
-    <script src="./assets/app.js?v=6"></script>
+    <script src="./assets/app.js?v=7"></script>
 </body>
 </html>
