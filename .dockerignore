@@ -1,0 +1,16 @@
+.git
+.pytest_cache
+.ruff_cache
+__pycache__
+*.pyc
+.venv
+venv
+env
+.env
+*.db
+*.sqlite
+*.sqlite3
+*.mp4
+data/raw/*.csv
+data/processed/*.csv
+data/weights/*.joblib

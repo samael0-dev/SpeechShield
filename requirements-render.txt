@@ -1,0 +1,19 @@
+# Lightweight dependencies for Render Free (512 MB RAM, baseline + heuristic backend)
+scikit-learn>=1.4.0
+numpy>=1.26.0
+pandas>=2.2.0
+scipy>=1.12.0
+joblib>=1.3.0
+nltk>=3.8.1
+emoji>=2.10.0
+ekphrasis>=0.5.4
+
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+pydantic>=2.6.0
+pydantic-settings>=2.2.0
+python-dotenv>=1.0.1
+python-multipart>=0.0.9
+
+SQLAlchemy>=2.0.28
+psycopg2-binary>=2.9.9

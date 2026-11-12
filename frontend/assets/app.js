@@ -1,9 +1,29 @@
 (() => {
     const params = new URLSearchParams(window.location.search);
+    const configuredApi = (window.SPEECHSHIELD_API_URL || "").trim();
     const API_BASE = (
         params.get("api") ||
-        (window.location.port === "8000" ? window.location.origin : "http://localhost:8000")
+        configuredApi ||
+        (window.location.protocol === "file:" || window.location.port === "8501"
+            ? "http://localhost:8000"
+            : window.location.origin)
     ).replace(/\/+$/, "");
+
+    const readStorage = (key, fallback) => {
+        try {
+            return window.localStorage.getItem(key) ?? fallback;
+        } catch {
+            return fallback;
+        }
+    };
+
+    const writeStorage = (key, value) => {
+        try {
+            window.localStorage.setItem(key, value);
+        } catch {
+            // Ignored in sandboxed iframes where storage access is restricted
+        }
+    };
 
     const VIEW_META = {
         analyzer: {
@@ -39,7 +59,7 @@
     };
 
     const state = {
-        darkMode: localStorage.getItem("ss_theme") !== "light",
+        darkMode: readStorage("ss_theme", "dark") !== "light",
         activeView: "analyzer",
         sidebarCollapsed: false,
         logFilter: "",
@@ -93,12 +113,12 @@
             root.classList.add("dark");
             icon.textContent = "☀️";
             label.textContent = "Light";
-            localStorage.setItem("ss_theme", "dark");
+            writeStorage("ss_theme", "dark");
         } else {
             root.classList.remove("dark");
             icon.textContent = "🌙";
             label.textContent = "Dark";
-            localStorage.setItem("ss_theme", "light");
+            writeStorage("ss_theme", "light");
         }
         if (state.lastPrediction) renderCategoryBarChart(state.lastPrediction.category_scores);
         if (state.lastLogs.length > 0) renderSpikeTimelineChart(state.lastLogs);
@@ -107,8 +127,15 @@
     function toggleSidebar() {
         state.sidebarCollapsed = !state.sidebarCollapsed;
         const sidebar = document.getElementById("sidebar");
+        const brandBar = document.getElementById("sidebar-brand-bar");
         sidebar.classList.toggle("w-64", !state.sidebarCollapsed);
         sidebar.classList.toggle("w-16", state.sidebarCollapsed);
+        if (brandBar) {
+            brandBar.classList.toggle("justify-between", !state.sidebarCollapsed);
+            brandBar.classList.toggle("px-4", !state.sidebarCollapsed);
+            brandBar.classList.toggle("justify-center", state.sidebarCollapsed);
+            brandBar.classList.toggle("px-2", state.sidebarCollapsed);
+        }
         sidebar.querySelectorAll(".sidebar-label").forEach((el) => {
             el.classList.toggle("hidden", state.sidebarCollapsed);
         });
@@ -404,12 +431,22 @@
                     const card = btn.closest("[data-review-id]");
                     const note = card.querySelector(".review-note-input").value.trim();
                     const decision = btn.classList.contains("review-approve-btn") ? "approved_safe" : "confirmed_toxic";
-                    await apiFetch(`/review/${id}`, {
-                        method: "POST",
-                        body: JSON.stringify({ decision, moderator_notes: note || null }),
+                    const buttons = card.querySelectorAll("button");
+                    buttons.forEach((b) => {
+                        b.disabled = true;
                     });
-                    await loadReviewQueue();
-                    await loadMonitor();
+                    try {
+                        await apiFetch(`/review/${id}`, {
+                            method: "POST",
+                            body: JSON.stringify({ decision, moderator_notes: note || null }),
+                        });
+                        await Promise.all([loadReviewQueue(), loadMonitor()]);
+                    } catch (err) {
+                        alert(`Review action failed: ${err.message}`);
+                        buttons.forEach((b) => {
+                            b.disabled = false;
+                        });
+                    }
                 });
             });
         } catch {
@@ -431,7 +468,7 @@
                               <td class="py-2.5 pr-3 font-mono">${escapeHtml(row.platform)}</td>
                               <td class="py-2.5 pr-3 font-mono text-gray-500 dark:text-[#8e95a5]">${escapeHtml(row.post_id)}</td>
                               <td class="py-2.5 pr-3 font-mono">@${escapeHtml(row.author_handle)}</td>
-                              <td class="py-2.5 pr-3 max-w-xs truncate" title="${escapeHtml(row.raw_text)}">${escapeHtml(row.raw_text)}</td>
+                              <td class="py-2.5 pr-3 max-w-[200px] truncate" title="${escapeHtml(row.raw_text)}">${escapeHtml(row.raw_text)}</td>
                               <td class="py-2.5 pr-3 font-mono tabular-nums">${pct(row.overall_score)}</td>
                               <td class="py-2.5 pr-3"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold ${actionPillClasses(row.action)}">${escapeHtml(row.action)}</span></td>
                               <td class="py-2.5 font-mono text-[11px] text-gray-500 dark:text-[#8e95a5]">${escapeHtml(row.review_status)}</td>
@@ -526,7 +563,7 @@
         }
     }
 
-    function switchView(viewName) {
+    async function switchView(viewName, options = {}) {
         state.activeView = viewName;
         const meta = VIEW_META[viewName] || VIEW_META.analyzer;
         document.getElementById("breadcrumb-section").textContent = meta.section;
@@ -537,18 +574,26 @@
         document.querySelectorAll(".nav-btn").forEach((btn) => {
             const active = btn.dataset.view === viewName;
             btn.className = active
-                ? "nav-btn w-full flex items-center justify-between gap-2 px-2.5 py-2 rounded-lg text-[13px] font-medium transition text-left bg-accent-500/15 text-accent-600 dark:text-[#b4a9ff] border border-accent-500/25"
-                : "nav-btn w-full flex items-center justify-between gap-2 px-2.5 py-2 rounded-lg text-[13px] font-medium transition text-left text-gray-600 dark:text-[#8e95a5] hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/[0.04] border border-transparent";
+                ? "nav-btn w-full flex items-center justify-between gap-2 px-2.5 py-2 rounded-lg text-[13px] font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-500/60 transition text-left bg-accent-500/15 text-accent-600 dark:text-[#b4a9ff] border border-accent-500/25"
+                : "nav-btn w-full flex items-center justify-between gap-2 px-2.5 py-2 rounded-lg text-[13px] font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-500/60 transition text-left text-gray-600 dark:text-[#8e95a5] hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/[0.04] border border-transparent";
         });
 
         document.querySelectorAll(".view-panel").forEach((panel) => {
             panel.classList.toggle("hidden", panel.id !== `view-${viewName}`);
         });
 
-        if (viewName === "review") loadReviewQueue();
-        if (viewName === "monitor") loadMonitor();
-        if (viewName === "logs") loadLogs();
-        if (viewName === "policy") checkHealth();
+        if (viewName === "review") await loadReviewQueue();
+        if (viewName === "monitor") {
+            await loadMonitor();
+            if (options.scrollTo) {
+                const target = document.getElementById(options.scrollTo);
+                if (target && !target.classList.contains("hidden")) {
+                    target.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+            }
+        }
+        if (viewName === "logs") await loadLogs();
+        if (viewName === "policy") await checkHealth();
     }
 
     document.addEventListener("DOMContentLoaded", async () => {
@@ -563,7 +608,9 @@
         document.getElementById("sidebar-collapse-btn").addEventListener("click", toggleSidebar);
 
         document.querySelectorAll("[data-view]").forEach((btn) => {
-            btn.addEventListener("click", () => switchView(btn.dataset.view));
+            btn.addEventListener("click", () => {
+                switchView(btn.dataset.view, { scrollTo: btn.dataset.scroll || null });
+            });
         });
 
         document.querySelectorAll(".log-filter-btn").forEach((btn) => {
@@ -572,7 +619,7 @@
                 document.querySelectorAll(".log-filter-btn").forEach((b) => {
                     const active = (b.dataset.filter || "") === state.logFilter;
                     b.className = active
-                        ? "log-filter-btn px-3 py-1 rounded-lg text-xs font-medium bg-accent-500/15 text-accent-400 border border-accent-500/30"
+                        ? "log-filter-btn px-3 py-1 rounded-lg text-xs font-medium bg-accent-500/15 text-accent-600 dark:text-accent-400 border border-accent-500/30"
                         : "log-filter-btn px-3 py-1 rounded-lg text-xs font-medium bg-gray-100 dark:bg-[#1c1f29] text-gray-600 dark:text-[#8e95a5] border border-gray-200 dark:border-white/[0.08]";
                 });
                 loadLogs();
@@ -581,7 +628,9 @@
 
         document.querySelectorAll(".sample-btn").forEach((btn) => {
             btn.addEventListener("click", () => {
-                document.getElementById("comment-input").value = btn.dataset.sample;
+                const input = document.getElementById("comment-input");
+                input.value = btn.dataset.sample;
+                input.focus();
             });
         });
 
@@ -602,6 +651,7 @@
                 const result = await apiFetch("/predict", { method: "POST", body: JSON.stringify(payload) });
                 renderPrediction(result);
                 loadReviewQueue();
+                loadMonitor();
             } catch (err) {
                 alert(`Prediction failed: ${err.message}`);
             } finally {

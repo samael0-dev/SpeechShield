@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: speechshield-api
+    runtime: python
+    plan: free
+    buildCommand: pip install --upgrade pip && pip install -r requirements-render.txt && python scripts/scrape_data.py --source sample && python scripts/train_model.py --mode baseline
+    startCommand: uvicorn src.api.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: MODEL_BACKEND
+        value: baseline
+      - key: TOXICITY_THRESHOLD
+        value: "0.50"
+      - key: BORDERLINE_LOW
+        value: "0.60"
+      - key: BORDERLINE_HIGH
+        value: "0.80"
+      - key: FAST_PASS_SAFE_THRESHOLD
+        value: "0.20"
+      - key: DATABASE_URL
+        sync: false
