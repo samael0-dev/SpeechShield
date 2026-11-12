@@ -18,7 +18,7 @@
 ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
 ![HuggingFace](https://img.shields.io/badge/Transformers-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)
 ![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Pytest](https://img.shields.io/badge/Pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white)
@@ -31,7 +31,7 @@
 
 **SpeechShield** is an end-to-end social media toxicity and hate-speech detection platform designed to moderate high-velocity, unstructured online discussions across X (Twitter), Reddit, YouTube, and community feeds.
 
-Traditional academic English classifiers struggle with social media dialects—emojis (`🤡`), camel-cased hashtags (`#IdentityHate`), leetspeak and obfuscated slurs (`$lut`, `@ss`, `b!tch`), elongations (`whyyyyy`), and sudden coordinated harassment bursts. SpeechShield solves this through a social-aware text preprocessing pipeline, a fast-pass traditional ML filter, transformer inference (`BERTweet` / `RoBERTa`), asynchronous FastAPI endpoints, SQLAlchemy audit persistence, and an interactive Streamlit moderation dashboard.
+Traditional academic English classifiers struggle with social media dialects—emojis (`🤡`), camel-cased hashtags (`#IdentityHate`), leetspeak and obfuscated slurs (`$lut`, `@ss`, `b!tch`), elongations (`whyyyyy`), and sudden coordinated harassment bursts. SpeechShield solves this through a social-aware text preprocessing pipeline, a fast-pass traditional ML filter, transformer inference (`BERTweet` / `RoBERTa`), asynchronous FastAPI endpoints, SQLAlchemy audit persistence, and an interactive HTML + Tailwind CSS moderation dashboard.
 
 ### What SpeechShield Delivers
 
@@ -41,7 +41,7 @@ Traditional academic English classifiers struggle with social media dialects—e
 - **Human-in-the-Loop Borderline Queue** — Automatically routes ambiguous comments in the **60%–80%** confidence band (`needs_human_review=True`) for human moderator review instead of blindly auto-blocking.
 - **Hate-Raid Spike Detection** — Aggregates per-post toxicity ratios across concurrent batches and logs to detect coordinated toxic raids (`warning` / `critical`).
 - **Asynchronous API & Persistence (`src/api/`)** — Serves concurrent FastAPI prediction, batch webhook, review, and analytics endpoints backed by SQLAlchemy (SQLite locally, PostgreSQL in Docker).
-- **Live Moderation Dashboard (`frontend/app.py`)** — Provides single-comment inspection, CSV/batch analysis, live stream simulation, borderline review actions, and spike visualizations.
+- **Live Moderation Dashboard (`frontend/index.html`)** — Dark/Light Tailwind CSS console featuring single-comment inspection, interactive SVG charts, borderline review actions, and spike telemetry.
 
 ---
 
@@ -104,7 +104,7 @@ Rather than sending raw noisy social text straight to a heavy transformer, every
 | **Hybrid Toxicity Classifier** ([classifier.py](src/model/classifier.py)) | Supports `hybrid`, `baseline`, `transformer`, and `heuristic` backends with automatic fast-pass routing. |
 | **Threshold & Spike Utils** ([utils.py](src/model/utils.py)) | Probability temperature calibration, moderation decision mapping, and per-`post_id` hate-raid detection. |
 | **FastAPI Service** ([main.py](src/api/main.py)) | Async lifespan startup, CORS middleware, and SQLAlchemy `ModerationLog` persistence. |
-| **Streamlit Dashboard** ([app.py](frontend/app.py)) | 4-tab UI: Live Text Analyzer, Batch/CSV & Stream Simulator, Borderline Review Queue, and Spike Monitor. |
+| **Moderation Dashboard** ([index.html](frontend/index.html)) | HTML + Tailwind CSS 3-tab UI: Live Text Analyzer, Borderline Review Queue, and Spike Monitor. |
 
 ---
 
@@ -116,7 +116,7 @@ Rather than sending raw noisy social text straight to a heavy transformer, every
 | **Deep Learning & NLP** | PyTorch, Hugging Face `transformers` (`vinai/bertweet-base`, `roberta-base`), `peft` (LoRA), `datasets` |
 | **Traditional ML & Preprocessing** | Scikit-Learn (`TfidfVectorizer`, `LogisticRegression`, `LinearSVC`, `CalibratedClassifierCV`), `imbalanced-learn`, `joblib`, `emoji`, `ekphrasis`, NLTK |
 | **Database & Streaming** | SQLAlchemy 2.0, SQLite (local default), PostgreSQL (`psycopg2-binary`), Apache Kafka, Tweepy, PRAW |
-| **Frontend Dashboard** | Streamlit, Altair, Pandas |
+| **Frontend Dashboard** | HTML5, Tailwind CSS, Vanilla JavaScript, Inline SVG Charts |
 | **Containerization & QA** | Docker, Docker Compose (PostgreSQL 16 + Apache Kafka 3.7 KRaft), Pytest, Ruff |
 
 ---
@@ -200,30 +200,21 @@ python scripts/scrape_data.py --source huggingface --dataset-name civil_comments
 python scripts/train_model.py --mode transformer --transformer-model vinai/bertweet-base --epochs 3 --batch-size 16 --use-lora
 ```
 
-### Step 6 — Start the FastAPI backend & Streamlit dashboard
-
-**Terminal 1 — FastAPI Backend:**
+### Step 6 — Start the FastAPI server & dashboard
 
 ```bash
 uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
+- Moderation Dashboard: `http://localhost:8000/`
 - Interactive Swagger UI: `http://localhost:8000/docs`
 - ReDoc UI: `http://localhost:8000/redoc`
-
-**Terminal 2 — Streamlit Moderation Dashboard:**
-
-```bash
-streamlit run frontend/app.py
-```
-
-- Dashboard UI: `http://localhost:8501`
 
 ---
 
 ## Docker Deployment
 
-Launch the full stack (**PostgreSQL 16**, **Apache Kafka 3.7 KRaft**, **FastAPI API**, and **Streamlit Frontend**) using Docker Compose:
+Launch the full stack (**PostgreSQL 16**, **Apache Kafka 3.7 KRaft**, **FastAPI API**, and **Nginx HTML/Tailwind Frontend**) using Docker Compose:
 
 ```bash
 docker compose up --build
@@ -290,11 +281,10 @@ SpeechShield/
 │       └── utils.py                     # Threshold calibration & hate-raid spike detection
 │
 ├── frontend/
-│   ├── app.py                           # Streamlit moderation dashboard
-│   ├── components/
-│   │   └── charts.py                    # Altair category & spike timeline visualizations
+│   ├── index.html                       # Tailwind CSS moderation dashboard
 │   └── assets/
-│       └── style.css                    # Custom badge and card styling
+│       ├── app.js                       # API integration, Dark/Light toggle & SVG charts
+│       └── style.css                    # Typography & scrollbar refinements
 │
 ├── scripts/
 │   ├── scrape_data.py                   # Dataset ingestion & preprocessing CLI
@@ -309,7 +299,7 @@ SpeechShield/
 ├── .gitignore                           # Ignores data/, weights/, .env, and local DBs
 ├── docker-compose.yml                   # Orchestrates PostgreSQL, Kafka, API & Frontend
 ├── Dockerfile.api                       # FastAPI container image
-├── Dockerfile.frontend                  # Streamlit container image
+├── Dockerfile.frontend                  # Nginx container image for HTML/Tailwind UI
 ├── requirements.txt                     # Python dependencies
 └── README.md
 ```

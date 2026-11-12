@@ -36,6 +36,12 @@ def client(tmp_path: Path) -> TestClient:
         yield test_client
 
 
+def test_dashboard_root_serves_html(client: TestClient) -> None:
+    resp = client.get("/")
+    assert resp.status_code == 200
+    assert "<title>SpeechShield</title>" in resp.text
+
+
 def test_health_endpoint(client: TestClient) -> None:
     resp = client.get("/health")
     assert resp.status_code == 200

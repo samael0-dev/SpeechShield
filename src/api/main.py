@@ -6,10 +6,13 @@ import logging
 import os
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from src.api.routes import router
 from src.model.classifier import ToxicityClassifier
@@ -61,6 +64,18 @@ def create_app(classifier: ToxicityClassifier | None = None) -> FastAPI:
         allow_headers=["*"],
     )
     application.include_router(router)
+
+    frontend_dir = Path(__file__).resolve().parents[2] / "frontend"
+    assets_dir = frontend_dir / "assets"
+    index_file = frontend_dir / "index.html"
+    if assets_dir.exists():
+        application.mount("/assets", StaticFiles(directory=assets_dir), name="frontend-assets")
+    if index_file.exists():
+
+        @application.get("/", include_in_schema=False)
+        async def serve_dashboard() -> FileResponse:
+            return FileResponse(index_file)
+
     return application
 
 

@@ -1,39 +1,33 @@
-/* Custom dashboard styling for Social Media Toxicity Detector */
-.block-container {
-    padding-top: 1.5rem;
-    padding-bottom: 2rem;
+/* SpeechShield custom refinements complementing Tailwind CSS */
+html {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
-.status-badge {
-    display: inline-block;
-    padding: 0.25rem 0.65rem;
+.tabular-nums {
+    font-variant-numeric: tabular-nums;
+}
+
+.chart-tooltip {
+    pointer-events: none;
+    transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+/* Custom subtle scrollbars */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(142, 149, 165, 0.28);
     border-radius: 999px;
-    font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.02em;
 }
 
-.badge-allow {
-    background-color: rgba(34, 197, 94, 0.18);
-    color: #16a34a;
-    border: 1px solid rgba(34, 197, 94, 0.4);
-}
-
-.badge-review {
-    background-color: rgba(245, 158, 11, 0.18);
-    color: #d97706;
-    border: 1px solid rgba(245, 158, 11, 0.4);
-}
-
-.badge-block {
-    background-color: rgba(239, 68, 68, 0.18);
-    color: #dc2626;
-    border: 1px solid rgba(239, 68, 68, 0.4);
-}
-
-.signal-card {
-    padding: 0.85rem 1rem;
-    border-radius: 0.6rem;
-    border: 1px solid rgba(148, 163, 184, 0.25);
-    background-color: rgba(148, 163, 184, 0.06);
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(142, 149, 165, 0.45);
 }

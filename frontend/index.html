@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SpeechShield</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%2360a5fa' d='M32 4L8 14v18c0 15.2 10.3 29.4 24 32 13.7-2.6 24-16.8 24-32V14L32 4z'/%3E%3Cpath fill='%233b82f6' d='M32 4v60c13.7-2.6 24-16.8 24-32V14L32 4z'/%3E%3C/svg%3E" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+                    },
+                    colors: {
+                        accent: {
+                            500: '#7c6cf6',
+                            400: '#8b7cf8',
+                            600: '#6b5ae8',
+                        },
+                    },
+                },
+            },
+        };
+    </script>
+    <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body class="min-h-screen bg-[#f7f8fa] text-[#111827] dark:bg-[#0c0d12] dark:text-[#f3f4f6] transition-colors duration-200 antialiased">
+    <div class="min-h-screen flex">
+        <!-- Left Sidebar Navigation (Octave-style) -->
+        <aside id="sidebar" class="w-64 shrink-0 flex flex-col justify-between bg-white dark:bg-[#11131a] border-r border-gray-200 dark:border-white/[0.08] transition-all duration-200">
+            <div>
+                <!-- Brand Bar -->
+                <div class="h-14 px-4 flex items-center justify-between border-b border-gray-200 dark:border-white/[0.06]">
+                    <div class="flex items-center gap-2.5 min-w-0">
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-md bg-accent-500/15 text-accent-500 dark:text-accent-400 shrink-0">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path d="M12 2L4 5.5v6.2c0 5.3 3.4 10.2 8 11.3 4.6-1.1 8-6 8-11.3V5.5L12 2z"/>
+                            </svg>
+                        </span>
+                        <span class="sidebar-label font-semibold text-sm tracking-tight text-gray-900 dark:text-white truncate">SpeechShield</span>
+                    </div>
+                    <button id="sidebar-collapse-btn" type="button" title="Toggle sidebar" class="p-1.5 rounded-md text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/[0.06] transition">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <rect x="3" y="4" width="18" height="16" rx="2"/>
+                            <path d="M9 4v16"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Workspace Card -->
+                <div class="px-3 pt-3 pb-2 sidebar-label">
+                    <div class="flex items-center justify-between gap-2 px-2.5 py-2 rounded-lg bg-gray-50 dark:bg-[#171923] border border-gray-200 dark:border-white/[0.07]">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <span class="w-7 h-7 rounded-md bg-gray-200 dark:bg-[#232634] text-[11px] font-semibold flex items-center justify-center text-gray-700 dark:text-gray-200 shrink-0">SS</span>
+                            <div class="min-w-0">
+                                <div class="text-xs font-semibold text-gray-900 dark:text-gray-100 truncate">SpeechShield Cloud</div>
+                                <div class="text-[11px] text-gray-500 dark:text-[#8e95a5] truncate">Moderation workspace</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nav Groups -->
+                <nav class="px-3 py-2 space-y-5" aria-label="Sidebar Navigation">
+                    <div>
+                        <div class="sidebar-label px-2.5 mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-[#6b7280]">Moderation</div>
+                        <div class="space-y-0.5">
+                            <button type="button" data-view="analyzer" class="nav-btn w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-[13px] font-medium transition text-left">
+                                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+                                <span class="sidebar-label truncate">Live Text Analyzer</span>
+                            </button>
+                            <button type="button" data-view="review" class="nav-btn w-full flex items-center justify-between gap-2 px-2.5 py-2 rounded-lg text-[13px] font-medium transition text-left">
+                                <span class="flex items-center gap-2.5 min-w-0">
+                                    <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m16 11 2 2 4-4"/></svg>
+                                    <span class="sidebar-label truncate">Borderline Queue</span>
+                                </span>
+                                <span id="review-count-badge" class="hidden sidebar-label px-1.5 py-0.5 text-[10px] font-mono font-semibold rounded-full bg-amber-500/20 text-amber-500">0</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="sidebar-label px-2.5 mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-[#6b7280]">Intelligence</div>
+                        <div class="space-y-0.5">
+                            <button type="button" data-view="monitor" class="nav-btn w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-[13px] font-medium transition text-left">
+                                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                                <span class="sidebar-label truncate">Hate-Raid Monitor</span>
+                            </button>
+                            <button type="button" data-view="logs" class="nav-btn w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-[13px] font-medium transition text-left">
+                                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h8"/></svg>
+                                <span class="sidebar-label truncate">Moderation Logs</span>
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- Bottom Utility Section -->
+            <div class="px-3 py-3 border-t border-gray-200 dark:border-white/[0.06] space-y-0.5">
+                <button type="button" data-view="monitor" class="nav-utility-btn w-full flex items-center justify-between gap-2 px-2.5 py-2 rounded-lg text-[13px] font-medium text-gray-500 dark:text-[#8e95a5] hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/[0.04] transition text-left">
+                    <span class="flex items-center gap-2.5 min-w-0">
+                        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                        <span class="sidebar-label truncate">Alerts</span>
+                    </span>
+                    <span id="alerts-count-badge" class="hidden sidebar-label px-1.5 py-0.5 text-[10px] font-mono font-semibold rounded-full bg-red-500/20 text-red-400">0</span>
+                </button>
+                <button type="button" data-view="policy" class="nav-btn w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-[13px] font-medium transition text-left">
+                    <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    <span class="sidebar-label truncate">Threshold &amp; Policy</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Content -->
+        <div class="flex-1 min-w-0 flex flex-col">
+            <!-- Top Bar -->
+            <header class="h-14 px-6 flex items-center justify-between gap-4 border-b border-gray-200 dark:border-white/[0.08] bg-white/70 dark:bg-[#0c0d12]/80 backdrop-blur">
+                <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-[#8e95a5]">
+                    <span id="breadcrumb-section">Moderation</span>
+                    <span>&rsaquo;</span>
+                    <span id="breadcrumb-page" class="font-medium text-gray-900 dark:text-gray-200">Live Text Analyzer</span>
+                </div>
+                <div class="flex items-center gap-2.5">
+                    <span id="api-status-pill" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                        <span class="w-1.5 h-1.5 rounded-full bg-current"></span>
+                        <span>Checking API...</span>
+                    </span>
+                    <button id="theme-toggle-btn" type="button" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-[#1c1f29] transition">
+                        <span id="theme-icon">☀️</span>
+                        <span id="theme-label">Light</span>
+                    </button>
+                </div>
+            </header>
+
+            <main class="flex-1 max-w-6xl w-full mx-auto px-6 py-6">
+                <!-- Page Title -->
+                <div class="mb-5">
+                    <h1 id="page-heading" class="text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">Live Text Analyzer</h1>
+                    <p id="page-subheading" class="text-sm text-gray-500 dark:text-[#8e95a5] mt-1">
+                        Analyze social posts with dialect cleaning, fast-pass filtering, and calibrated toxicity scoring.
+                    </p>
+                </div>
+
+                <!-- API Offline Notice -->
+                <div id="api-offline-banner" class="hidden mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-xs text-amber-700 dark:text-amber-300 flex items-center justify-between gap-3">
+                    <span>FastAPI backend unreachable. Start the server with <code class="font-mono px-1.5 py-0.5 rounded bg-black/10 dark:bg-white/10">uvicorn src.api.main:app --reload --port 8000</code></span>
+                    <button id="retry-health-btn" type="button" class="px-2.5 py-1 rounded-md font-medium bg-amber-500/20 hover:bg-amber-500/30 transition">Retry</button>
+                </div>
+
+                <!-- VIEW 1: LIVE TEXT ANALYZER -->
+                <section id="view-analyzer" class="view-panel space-y-4">
+                    <form id="analyze-form" class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 sm:p-5">
+                        <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                            <div class="lg:col-span-3">
+                                <label for="comment-input" class="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5] mb-2">
+                                    Social Post or Comment
+                                </label>
+                                <textarea id="comment-input" rows="4" required placeholder="e.g., Shut up you @ss clown 🤡 #IdentityHate" class="w-full rounded-lg bg-gray-50 dark:bg-[#0c0d12] border border-gray-200 dark:border-white/[0.08] px-3.5 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent-500/50 focus:border-accent-500"></textarea>
+                            </div>
+                            <div class="space-y-3">
+                                <div>
+                                    <label for="platform-select" class="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5] mb-1">Platform</label>
+                                    <select id="platform-select" class="w-full rounded-lg bg-gray-50 dark:bg-[#0c0d12] border border-gray-200 dark:border-white/[0.08] px-3 py-2 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-accent-500/50">
+                                        <option value="x">x</option>
+                                        <option value="reddit">reddit</option>
+                                        <option value="youtube">youtube</option>
+                                        <option value="discord">discord</option>
+                                        <option value="other">other</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="post-id-input" class="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5] mb-1">Post / Thread ID</label>
+                                    <input id="post-id-input" type="text" value="post_101" class="w-full rounded-lg bg-gray-50 dark:bg-[#0c0d12] border border-gray-200 dark:border-white/[0.08] px-3 py-2 text-sm font-mono text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-accent-500/50" />
+                                </div>
+                                <div>
+                                    <label for="author-input" class="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5] mb-1">Author Handle</label>
+                                    <input id="author-input" type="text" value="social_user" class="w-full rounded-lg bg-gray-50 dark:bg-[#0c0d12] border border-gray-200 dark:border-white/[0.08] px-3 py-2 text-sm font-mono text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-accent-500/50" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+                            <div class="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-[#8e95a5]">
+                                <span>Quick samples:</span>
+                                <button type="button" class="sample-btn px-2.5 py-1 rounded-md bg-gray-100 dark:bg-[#1c1f29] hover:bg-gray-200 dark:hover:bg-[#252936] transition" data-sample="GG everyone! Really enjoyed the stream today 🙌🔥 #ProGaming">Safe banter</button>
+                                <button type="button" class="sample-btn px-2.5 py-1 rounded-md bg-gray-100 dark:bg-[#1c1f29] hover:bg-gray-200 dark:hover:bg-[#252936] transition" data-sample="You are such a clown 🤡">Borderline (60–80%)</button>
+                                <button type="button" class="sample-btn px-2.5 py-1 rounded-md bg-gray-100 dark:bg-[#1c1f29] hover:bg-gray-200 dark:hover:bg-[#252936] transition" data-sample="Shut up you @ss $lut #IdentityHate I will hurt you">High toxicity</button>
+                            </div>
+                            <button id="analyze-submit-btn" type="submit" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-accent-500 hover:bg-accent-600 text-white shadow-sm transition">
+                                Analyze Comment
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Analysis Results -->
+                    <div id="analyzer-results" class="hidden space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 flex flex-col justify-between gap-3">
+                                <div>
+                                    <div class="flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-gray-100">
+                                        <span>⚡</span>
+                                        <span id="finding-verdict-title">Moderation Verdict</span>
+                                    </div>
+                                    <p id="finding-verdict-body" class="text-xs text-gray-500 dark:text-[#8e95a5] mt-1.5 leading-relaxed"></p>
+                                </div>
+                                <div class="flex items-center justify-between gap-2">
+                                    <span id="finding-verdict-pill" class="px-2.5 py-1 rounded-full text-xs font-semibold"></span>
+                                    <span id="finding-model-tag" class="px-2.5 py-1 rounded-full text-xs font-mono bg-gray-100 dark:bg-[#1c1f29] border border-gray-200 dark:border-white/[0.08] text-gray-600 dark:text-[#8e95a5]"></span>
+                                </div>
+                            </div>
+
+                            <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 flex flex-col justify-between gap-3">
+                                <div>
+                                    <div class="flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-gray-100">
+                                        <span>🧹</span>
+                                        <span>Preprocessed Social Text</span>
+                                    </div>
+                                    <p id="finding-cleaned-body" class="text-xs font-mono text-gray-700 dark:text-gray-300 mt-1.5 leading-relaxed break-words"></p>
+                                </div>
+                                <div class="flex items-center justify-between gap-2">
+                                    <span id="finding-sentiment-pill" class="px-2.5 py-1 rounded-full text-xs font-semibold tabular-nums"></span>
+                                    <span id="finding-obfuscation-tag" class="px-2.5 py-1 rounded-full text-xs font-mono bg-gray-100 dark:bg-[#1c1f29] border border-gray-200 dark:border-white/[0.08] text-gray-600 dark:text-[#8e95a5]"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+                            <div class="lg:col-span-7 rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 sm:p-5">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div>
+                                        <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-100">Category Toxicity Profile</h2>
+                                        <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-0.5">Multi-label probability distribution vs 60% review threshold</p>
+                                    </div>
+                                    <span class="text-xs font-mono text-amber-500">--- 60% Review</span>
+                                </div>
+                                <div id="category-bar-chart" class="relative w-full"></div>
+                            </div>
+
+                            <div class="lg:col-span-5 rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 sm:p-5 flex flex-col justify-between gap-4">
+                                <div>
+                                    <div class="flex items-center justify-between gap-2 mb-4">
+                                        <div>
+                                            <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-100">Dimension Breakdown</h2>
+                                            <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-0.5">Per-category confidence meters</p>
+                                        </div>
+                                        <span id="dimension-verdict-badge" class="px-2.5 py-1 rounded-full text-xs font-semibold tabular-nums"></span>
+                                    </div>
+                                    <div id="category-meters" class="space-y-3"></div>
+                                </div>
+
+                                <div id="extracted-cues-wrapper" class="hidden pt-3 border-t border-gray-200 dark:border-white/[0.08]">
+                                    <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5] mb-2">Extracted Social Cues</div>
+                                    <div id="extracted-cues" class="flex flex-wrap gap-1.5"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 2: BORDERLINE REVIEW QUEUE -->
+                <section id="view-review" class="view-panel hidden space-y-4">
+                    <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                            <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-100">Human-in-the-Loop Borderline Queue</h2>
+                            <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-0.5">Comments scoring in the 60%–80% confidence band awaiting moderator decision</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">60%–80% Band</span>
+                            <button id="refresh-review-btn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 dark:bg-[#1c1f29] hover:bg-gray-200 dark:hover:bg-[#252936] border border-gray-200 dark:border-white/[0.08] transition">↻ Refresh</button>
+                        </div>
+                    </div>
+                    <div id="review-queue-list" class="space-y-3"></div>
+                </section>
+
+                <!-- VIEW 3: HATE-RAID & SPIKE MONITOR -->
+                <section id="view-monitor" class="view-panel hidden space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 flex flex-col justify-between gap-3">
+                            <div>
+                                <div class="flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-gray-100">
+                                    <span id="spike-finding-icon">🛡️</span>
+                                    <span id="spike-finding-title">Loading telemetry...</span>
+                                </div>
+                                <p id="spike-finding-body" class="text-xs text-gray-500 dark:text-[#8e95a5] mt-1.5 leading-relaxed"></p>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <span id="spike-finding-pill" class="px-2.5 py-1 rounded-full text-xs font-semibold"></span>
+                                <span id="spike-finding-tag" class="px-2.5 py-1 rounded-full text-xs font-mono bg-gray-100 dark:bg-[#1c1f29] border border-gray-200 dark:border-white/[0.08] text-gray-600 dark:text-[#8e95a5]"></span>
+                            </div>
+                        </div>
+
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 flex flex-col justify-between gap-3">
+                            <div>
+                                <div class="flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-gray-100">
+                                    <span>📊</span>
+                                    <span id="vector-finding-title">Top Flagged Vector</span>
+                                </div>
+                                <p id="vector-finding-body" class="text-xs text-gray-500 dark:text-[#8e95a5] mt-1.5 leading-relaxed"></p>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <span id="vector-finding-pill" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-accent-500/15 text-accent-600 dark:text-accent-400 border border-accent-500/30"></span>
+                                <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-gray-100 dark:bg-[#1c1f29] border border-gray-200 dark:border-white/[0.08] text-gray-600 dark:text-[#8e95a5]">Live Telemetry</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5]">Processed</span>
+                                <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-gray-100 dark:bg-[#1c1f29] text-gray-600 dark:text-[#8e95a5]">Total</span>
+                            </div>
+                            <div id="kpi-total" class="text-2xl font-bold tabular-nums mt-2">0</div>
+                        </div>
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5]">Toxic Detected</span>
+                                <span id="kpi-toxic-pill" class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-500/15 text-amber-600 dark:text-amber-400">0%</span>
+                            </div>
+                            <div id="kpi-toxic" class="text-2xl font-bold tabular-nums mt-2">0</div>
+                        </div>
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5]">Auto-Blocked</span>
+                                <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-red-500/15 text-red-600 dark:text-red-400">&gt; 80%</span>
+                            </div>
+                            <div id="kpi-blocked" class="text-2xl font-bold tabular-nums mt-2">0</div>
+                        </div>
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-[#8e95a5]">Pending Review</span>
+                                <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-500/15 text-amber-600 dark:text-amber-400">60–80%</span>
+                            </div>
+                            <div id="kpi-pending" class="text-2xl font-bold tabular-nums mt-2">0</div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+                        <div class="lg:col-span-8 rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 sm:p-5">
+                            <div class="flex items-center justify-between gap-2 mb-3">
+                                <div>
+                                    <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-100">Toxicity Over Time</h2>
+                                    <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-0.5">Comment toxicity trajectory with 60% review and 80% block thresholds</p>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span id="avg-score-pill" class="px-2.5 py-1 rounded-full text-xs font-semibold font-mono bg-accent-500/15 text-accent-600 dark:text-accent-400">Avg 0.0%</span>
+                                    <button id="refresh-monitor-btn" type="button" class="px-2.5 py-1 rounded-lg text-xs font-medium bg-gray-100 dark:bg-[#1c1f29] hover:bg-gray-200 dark:hover:bg-[#252936] border border-gray-200 dark:border-white/[0.08] transition">↻</button>
+                                </div>
+                            </div>
+                            <div id="spike-timeline-chart" class="relative w-full"></div>
+                        </div>
+
+                        <div class="lg:col-span-4 rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 sm:p-5">
+                            <div class="mb-4">
+                                <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-100">Category Share</h2>
+                                <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-0.5">Share of flagged occurrences</p>
+                            </div>
+                            <div id="monitor-category-meters" class="space-y-3"></div>
+                        </div>
+                    </div>
+
+                    <div id="hate-raid-card" class="hidden rounded-xl bg-white dark:bg-[#14161d] border border-red-500/30 p-4 sm:p-5">
+                        <div class="flex items-center justify-between mb-3">
+                            <h2 class="text-sm font-semibold text-red-600 dark:text-red-400">Active Hate-Raid Alerts</h2>
+                            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-500/15 text-red-600 dark:text-red-400">Thread Spike</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead class="text-[11px] uppercase tracking-wider text-gray-500 dark:text-[#8e95a5] border-b border-gray-200 dark:border-white/[0.08]">
+                                    <tr>
+                                        <th class="py-2 pr-4">Post ID</th>
+                                        <th class="py-2 pr-4">Toxic / Total</th>
+                                        <th class="py-2 pr-4">Toxic Ratio</th>
+                                        <th class="py-2 pr-4">Avg Score</th>
+                                        <th class="py-2">Alert Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="hate-raid-tbody" class="divide-y divide-gray-100 dark:divide-white/[0.06] tabular-nums"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 4: MODERATION LOGS -->
+                <section id="view-logs" class="view-panel hidden space-y-4">
+                    <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 sm:p-5">
+                        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                            <div class="flex flex-wrap items-center gap-1.5">
+                                <button type="button" data-filter="" class="log-filter-btn px-3 py-1 rounded-lg text-xs font-medium bg-accent-500/15 text-accent-400 border border-accent-500/30">All</button>
+                                <button type="button" data-filter="allow" class="log-filter-btn px-3 py-1 rounded-lg text-xs font-medium bg-gray-100 dark:bg-[#1c1f29] text-gray-600 dark:text-[#8e95a5] border border-gray-200 dark:border-white/[0.08]">Allow</button>
+                                <button type="button" data-filter="review" class="log-filter-btn px-3 py-1 rounded-lg text-xs font-medium bg-gray-100 dark:bg-[#1c1f29] text-gray-600 dark:text-[#8e95a5] border border-gray-200 dark:border-white/[0.08]">Review</button>
+                                <button type="button" data-filter="block" class="log-filter-btn px-3 py-1 rounded-lg text-xs font-medium bg-gray-100 dark:bg-[#1c1f29] text-gray-600 dark:text-[#8e95a5] border border-gray-200 dark:border-white/[0.08]">Block</button>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span id="logs-count-pill" class="px-2.5 py-1 rounded-full text-xs font-mono bg-gray-100 dark:bg-[#1c1f29] border border-gray-200 dark:border-white/[0.08] text-gray-600 dark:text-[#8e95a5]">0 rows</span>
+                                <button id="refresh-logs-btn" type="button" class="px-2.5 py-1 rounded-lg text-xs font-medium bg-gray-100 dark:bg-[#1c1f29] hover:bg-gray-200 dark:hover:bg-[#252936] border border-gray-200 dark:border-white/[0.08] transition">↻ Refresh</button>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead class="text-[11px] uppercase tracking-wider text-gray-500 dark:text-[#8e95a5] border-b border-gray-200 dark:border-white/[0.08]">
+                                    <tr>
+                                        <th class="py-2.5 pr-3">ID</th>
+                                        <th class="py-2.5 pr-3">Platform</th>
+                                        <th class="py-2.5 pr-3">Post</th>
+                                        <th class="py-2.5 pr-3">Author</th>
+                                        <th class="py-2.5 pr-3">Comment</th>
+                                        <th class="py-2.5 pr-3">Score</th>
+                                        <th class="py-2.5 pr-3">Action</th>
+                                        <th class="py-2.5">Review</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="logs-tbody" class="divide-y divide-gray-100 dark:divide-white/[0.06]"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 5: THRESHOLD & POLICY -->
+                <section id="view-policy" class="view-panel hidden space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4">
+                            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-500">Auto-Allow (&lt; 60%)</span>
+                            <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-3 leading-relaxed">Low-toxicity posts and friendly banter pass immediately; scores under 20% short-circuit via the fast-pass baseline filter.</p>
+                        </div>
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4">
+                            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-500">Human Review (60%–80%)</span>
+                            <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-3 leading-relaxed">Borderline posts are held in the Borderline Queue so moderators can confirm toxicity or approve benign slang in context.</p>
+                        </div>
+                        <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4">
+                            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-500/15 text-red-500">Auto-Block (&gt; 80%)</span>
+                            <p class="text-xs text-gray-500 dark:text-[#8e95a5] mt-3 leading-relaxed">High-confidence abuse, threats (&ge; 70%), and identity hate (&ge; 75%) are blocked immediately and logged.</p>
+                        </div>
+                    </div>
+                    <div class="rounded-xl bg-white dark:bg-[#14161d] border border-gray-200 dark:border-white/[0.08] p-4 sm:p-5">
+                        <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">Active ML Backends</h2>
+                        <pre id="policy-backends-json" class="text-xs font-mono text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-[#0c0d12] rounded-lg p-3 border border-gray-200 dark:border-white/[0.06]">Loading...</pre>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="/assets/app.js"></script>
+</body>
+</html>
