@@ -99,7 +99,7 @@ def create_app(classifier: ToxicityClassifier | None = None) -> FastAPI:
         call_next: Callable[[Request], Awaitable[Response]],
     ) -> Response:
         response = await call_next(request)
-        if request.url.path in {"/", "/config.js"} or request.url.path.startswith("/assets/"):
+        if request.url.path == "/" or request.url.path.startswith("/assets/"):
             response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate"
             response.headers["Pragma"] = "no-cache"
         return response
@@ -109,15 +109,8 @@ def create_app(classifier: ToxicityClassifier | None = None) -> FastAPI:
     frontend_dir = Path(__file__).resolve().parents[2] / "frontend"
     assets_dir = frontend_dir / "assets"
     index_file = frontend_dir / "index.html"
-    config_file = frontend_dir / "config.js"
     if assets_dir.exists():
         application.mount("/assets", StaticFiles(directory=assets_dir), name="frontend-assets")
-    if config_file.exists():
-
-        @application.get("/config.js", include_in_schema=False)
-        async def serve_frontend_config() -> FileResponse:
-            return FileResponse(config_file, media_type="application/javascript")
-
     if index_file.exists():
 
         @application.get("/", include_in_schema=False)

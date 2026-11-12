@@ -1,9 +1,7 @@
 (() => {
     const params = new URLSearchParams(window.location.search);
-    const configuredApi = (window.SPEECHSHIELD_API_URL || "").trim();
     const API_BASE = (
         params.get("api") ||
-        configuredApi ||
         (window.location.protocol === "file:"
             ? "http://localhost:8000"
             : window.location.port === "8501"
