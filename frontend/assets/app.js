@@ -109,27 +109,8 @@
     function setApiStatus(isOnline, reason = "") {
         const pill = document.getElementById("api-status-pill");
         const banner = document.getElementById("api-offline-banner");
-        if (isOnline) {
-            if (pill) {
-                pill.className = "inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded-full text-xs font-semibold border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 cursor-pointer transition";
-                pill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></span><span id="api-status-text">API Online</span>`;
-                pill.title = "FastAPI backend connected (click to refresh)";
-            }
-            if (banner) {
-                banner.style.display = "none";
-                banner.classList.add("hidden");
-            }
-        } else {
-            if (pill) {
-                pill.className = "inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded-full text-xs font-semibold border border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400 cursor-pointer transition";
-                pill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0"></span><span id="api-status-text">API Offline</span>`;
-                pill.title = `Backend unreachable: ${reason || "click to retry"}`;
-            }
-            if (banner) {
-                banner.style.display = "flex";
-                banner.classList.remove("hidden");
-            }
-        }
+        if (pill) pill.remove();
+        if (banner) banner.remove();
     }
 
     async function apiFetch(path, options = {}) {
@@ -291,7 +272,7 @@
                 const label = cat.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
                 return `
                     <g>
-                        <text x="${padLeft - 10}" y="${y + 13}" text-anchor="end" fill="${labelColor}" font-size="11" font-family="Inter, sans-serif">${escapeHtml(label)}</text>
+                        <text x="${padLeft - 10}" y="${y + 13}" text-anchor="end" fill="${labelColor}" font-size="13" font-family="'Oregano', cursive, sans-serif">${escapeHtml(label)}</text>
                         <rect x="${padLeft}" y="${y}" width="${plotW}" height="18" rx="4" fill="${state.darkMode ? "rgba(255,255,255,0.04)" : "#f3f4f6"}" />
                         <rect x="${padLeft}" y="${y}" width="${barW}" height="18" rx="4" fill="${color}" />
                         <text x="${padLeft + plotW + 8}" y="${y + 13}" text-anchor="start" fill="${labelColor}" font-size="11" font-family="JetBrains Mono, monospace">${pct(score)}</text>
@@ -822,9 +803,11 @@
 
         const statusPill = document.getElementById("api-status-pill");
         if (statusPill) {
-            statusPill.addEventListener("click", () => {
-                checkHealth();
-            });
+            statusPill.remove();
+        }
+        const offlineBanner = document.getElementById("api-offline-banner");
+        if (offlineBanner) {
+            offlineBanner.remove();
         }
 
         // Interactive 3D Cosmic Parallax for planets and celestial bodies

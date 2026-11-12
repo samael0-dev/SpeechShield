@@ -1,7 +1,32 @@
-/* SpeechShield custom refinements complementing Tailwind CSS */
-html {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+/* SpeechShield typography - Google Font Oregano applied across all text */
+*, *::before, *::after {
+    font-family: 'Oregano', cursive, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+html, body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, span, a, label, table, th, td, div, li, ul, ol, blockquote, figcaption, header, footer, section, aside, nav, main {
+    font-family: 'Oregano', cursive, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+    letter-spacing: 0.015em;
+}
+
+code, code *, pre, pre *, .font-mono, .font-mono * {
+    font-family: 'JetBrains Mono', ui-monospace, monospace !important;
+}
+
+.font-oregano {
+    font-family: 'Oregano', cursive, sans-serif !important;
+}
+
+#api-status-pill,
+#api-offline-banner {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
 }
 
 .tabular-nums {
