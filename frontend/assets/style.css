@@ -31,3 +31,35 @@ html {
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(142, 149, 165, 0.45);
 }
+
+/* Cosmic Landing Animations (Cyera AI Guardian Style) */
+@keyframes cosmic-float-1 {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(2deg); }
+}
+
+@keyframes cosmic-float-2 {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(14px) rotate(-3deg); }
+}
+
+@keyframes cosmic-float-3 {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-8px) scale(1.02); }
+}
+
+.animate-cosmic-float-1 {
+    animation: cosmic-float-1 8s ease-in-out infinite;
+}
+
+.animate-cosmic-float-2 {
+    animation: cosmic-float-2 11s ease-in-out infinite;
+}
+
+.animate-cosmic-float-3 {
+    animation: cosmic-float-3 9s ease-in-out infinite;
+}
+
+.cosmic-hero-bg {
+    background: radial-gradient(ellipse at 50% 35%, #2a0e4a 0%, #1a0833 42%, #0a0314 100%);
+}

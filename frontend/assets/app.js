@@ -107,9 +107,15 @@
     };
 
     async function apiFetch(path, options = {}) {
+        const isBodyMethod = options.method && !["GET", "HEAD"].includes(options.method.toUpperCase());
+        const headers = {
+            Accept: "application/json",
+            ...(isBodyMethod ? { "Content-Type": "application/json" } : {}),
+            ...(options.headers || {}),
+        };
         const resp = await fetch(`${API_BASE}${path}`, {
-            headers: { "Content-Type": "application/json", ...(options.headers || {}) },
             ...options,
+            headers,
         });
         if (!resp.ok) {
             const text = await resp.text();
@@ -159,17 +165,28 @@
         const banner = document.getElementById("api-offline-banner");
         const policyPre = document.getElementById("policy-backends-json");
         try {
-            const data = await apiFetch("/health");
-            pill.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400";
-            pill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-current"></span><span>API Online</span>`;
-            banner.classList.add("hidden");
+            const data = await apiFetch(`/health?_=${Date.now()}`, { cache: "no-store" });
+            if (pill) {
+                pill.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400";
+                pill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-current"></span><span>API Online</span>`;
+            }
+            if (banner) {
+                banner.style.display = "none";
+                banner.classList.add("hidden");
+            }
             if (policyPre) policyPre.textContent = JSON.stringify(data, null, 2);
             return true;
-        } catch {
-            pill.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400";
-            pill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-current"></span><span>API Offline</span>`;
-            banner.classList.remove("hidden");
-            if (policyPre) policyPre.textContent = "API offline";
+        } catch (err) {
+            console.warn("SpeechShield API health check failed:", err);
+            if (pill) {
+                pill.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400";
+                pill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-current"></span><span>API Offline</span>`;
+            }
+            if (banner) {
+                banner.style.display = "flex";
+                banner.classList.remove("hidden");
+            }
+            if (policyPre) policyPre.textContent = `API offline: ${err.message || err}`;
             return false;
         }
     }
@@ -676,12 +693,98 @@
         document.getElementById("refresh-review-btn").addEventListener("click", loadReviewQueue);
         document.getElementById("refresh-monitor-btn").addEventListener("click", loadMonitor);
         document.getElementById("refresh-logs-btn").addEventListener("click", loadLogs);
-        document.getElementById("retry-health-btn").addEventListener("click", checkHealth);
+
+        const retryBtn = document.getElementById("retry-health-btn");
+        if (retryBtn) {
+            retryBtn.addEventListener("click", async () => {
+                retryBtn.disabled = true;
+                const originalText = retryBtn.textContent;
+                retryBtn.textContent = "Checking...";
+                try {
+                    const online = await checkHealth();
+                    if (online) {
+                        loadReviewQueue();
+                        loadMonitor();
+                        if (state.activeView === "logs") loadLogs();
+                    }
+                } finally {
+                    retryBtn.disabled = false;
+                    retryBtn.textContent = originalText;
+                }
+            });
+        }
+
+        function showWorkspace() {
+            const landing = document.getElementById("landing-hero");
+            const workspace = document.getElementById("app-workspace");
+            if (landing) landing.style.display = "none";
+            if (workspace) workspace.style.display = "flex";
+            try {
+                window.location.hash = "app";
+            } catch {}
+            checkHealth().then((online) => {
+                if (online) {
+                    loadReviewQueue();
+                    loadMonitor();
+                    if (state.activeView === "logs") loadLogs();
+                }
+            });
+        }
+
+        function showLanding() {
+            const landing = document.getElementById("landing-hero");
+            const workspace = document.getElementById("app-workspace");
+            if (workspace) workspace.style.display = "none";
+            if (landing) landing.style.display = "flex";
+            try {
+                history.replaceState(null, "", window.location.pathname + window.location.search);
+            } catch {}
+        }
+
+        // Attach Landing <-> Workspace transitions
+        document.querySelectorAll(".enter-app-trigger").forEach((el) => {
+            el.addEventListener("click", (e) => {
+                e.preventDefault();
+                showWorkspace();
+            });
+        });
+
+        const exitLandingBtn = document.getElementById("exit-to-landing-btn");
+        if (exitLandingBtn) {
+            exitLandingBtn.addEventListener("click", showLanding);
+        }
+
+        const brandLogo = document.getElementById("sidebar-brand-logo");
+        if (brandLogo) {
+            brandLogo.addEventListener("click", showLanding);
+        }
+
+        // Route on initial load: open workspace if #app or ?view=app, else show landing hero
+        if (window.location.hash === "#app" || params.get("view") === "app") {
+            showWorkspace();
+        } else {
+            showLanding();
+        }
 
         const online = await checkHealth();
         if (online) {
             loadReviewQueue();
             loadMonitor();
+        } else {
+            // Auto-poll every 5 seconds (up to 6 times) while the Render free-tier instance finishes waking up
+            let attempts = 0;
+            const poller = setInterval(async () => {
+                attempts += 1;
+                const ok = await checkHealth();
+                if (ok || attempts >= 6) {
+                    clearInterval(poller);
+                    if (ok) {
+                        loadReviewQueue();
+                        loadMonitor();
+                        if (state.activeView === "logs") loadLogs();
+                    }
+                }
+            }, 5000);
         }
     });
 })();

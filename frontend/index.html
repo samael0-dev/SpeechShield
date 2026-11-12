@@ -34,13 +34,248 @@
     <link rel="stylesheet" href="./assets/style.css?v=6" />
 </head>
 <body class="min-h-screen bg-[#f7f8fa] text-[#111827] dark:bg-[#0c0d12] dark:text-[#f3f4f6] transition-colors duration-200 antialiased">
-    <div class="min-h-screen flex">
+    <!-- ================================================================= -->
+    <!-- COSMIC HERO LANDING PAGE (Inspired by Cyera AI Guardian)          -->
+    <!-- ================================================================= -->
+    <section id="landing-hero" class="relative min-h-screen w-full overflow-hidden flex flex-col justify-between cosmic-hero-bg text-white select-none z-50">
+        <!-- Background Ambient Glow & Starfield -->
+        <div class="absolute inset-0 pointer-events-none">
+            <!-- Radial purple atmosphere haze -->
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(124,58,237,0.35)_0%,rgba(76,29,149,0.2)_45%,rgba(10,3,20,0.95)_100%)]"></div>
+            <!-- Bottom planet horizon glow -->
+            <div class="absolute bottom-0 left-0 right-0 h-96 bg-[radial-gradient(ellipse_at_50%_100%,rgba(168,85,247,0.45)_0%,rgba(147,51,234,0.2)_40%,transparent_75%)]"></div>
+            
+            <!-- Twinkling stars -->
+            <div class="absolute top-[12%] left-[18%] w-1.5 h-1.5 rounded-full bg-white opacity-80 shadow-[0_0_8px_#fff]"></div>
+            <div class="absolute top-[28%] left-[10%] w-1 h-1 rounded-full bg-purple-200 opacity-60"></div>
+            <div class="absolute top-[15%] right-[22%] w-1.5 h-1.5 rounded-full bg-purple-100 opacity-75 shadow-[0_0_6px_#c084fc]"></div>
+            <div class="absolute top-[35%] right-[12%] w-1 h-1 rounded-full bg-white opacity-90"></div>
+            <div class="absolute top-[52%] left-[25%] w-1.5 h-1.5 rounded-full bg-lime-200 opacity-70"></div>
+            <div class="absolute top-[68%] right-[28%] w-1 h-1 rounded-full bg-white opacity-60"></div>
+            <div class="absolute top-[22%] left-[48%] w-1 h-1 rounded-full bg-purple-300 opacity-50"></div>
+            <div class="absolute top-[8%] left-[75%] w-1.5 h-1.5 rounded-full bg-white opacity-70"></div>
+        </div>
+
+        <!-- Floating Cosmic Visual Elements -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden">
+            <!-- 1. Floating Asteroid / Space Rock (Top Left) -->
+            <div class="absolute top-[14%] left-[3%] w-28 sm:w-40 animate-cosmic-float-1 opacity-90 drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]">
+                <svg viewBox="0 0 160 140" fill="none" class="w-full h-auto">
+                    <polygon points="40,20 110,15 150,55 135,115 85,135 25,110 10,60" fill="#2d1547" stroke="#4c2277" stroke-width="2"/>
+                    <polygon points="40,20 85,55 25,110 10,60" fill="#220e38"/>
+                    <polygon points="85,55 110,15 150,55 115,85" fill="#3b1d5c"/>
+                    <polygon points="85,55 115,85 135,115 85,135" fill="#1b0a2c"/>
+                    <polygon points="25,110 85,55 85,135" fill="#170827"/>
+                    <circle cx="55" cy="45" r="9" fill="#190a2a" stroke="#4c2277" stroke-width="1.5"/>
+                    <circle cx="115" cy="75" r="14" fill="#190a2a" stroke="#4c2277" stroke-width="1.5"/>
+                </svg>
+            </div>
+
+            <!-- 2. Floating Asteroid (Top Right) -->
+            <div class="absolute top-[8%] right-[11%] w-24 sm:w-32 animate-cosmic-float-2 opacity-85">
+                <svg viewBox="0 0 130 120" fill="none" class="w-full h-auto">
+                    <polygon points="30,10 95,15 120,60 90,110 35,105 10,65" fill="#29123f" stroke="#441e69" stroke-width="2"/>
+                    <polygon points="30,10 65,55 10,65" fill="#1c0b2c"/>
+                    <polygon points="65,55 95,15 120,60" fill="#361854"/>
+                    <polygon points="65,55 120,60 90,110" fill="#1f0c32"/>
+                </svg>
+            </div>
+
+            <!-- 3. Floating Small Asteroid (Far Right) -->
+            <div class="absolute top-[28%] right-[3%] w-20 sm:w-24 animate-cosmic-float-1 opacity-70">
+                <svg viewBox="0 0 100 90" fill="none" class="w-full h-auto">
+                    <polygon points="25,10 80,18 95,55 65,85 20,75 5,40" fill="#27113c" stroke="#461e6c" stroke-width="1.5"/>
+                    <polygon points="25,10 50,45 5,40" fill="#1a0a29"/>
+                    <polygon points="50,45 80,18 95,55 60,65" fill="#361754"/>
+                </svg>
+            </div>
+
+            <!-- 4. Floating Asteroid (Bottom Right) -->
+            <div class="absolute bottom-[22%] right-[14%] w-24 sm:w-36 animate-cosmic-float-2 opacity-80">
+                <svg viewBox="0 0 140 130" fill="none" class="w-full h-auto">
+                    <polygon points="35,15 100,10 130,55 110,115 45,125 10,70" fill="#28113e" stroke="#421c66" stroke-width="2"/>
+                    <polygon points="35,15 70,60 10,70" fill="#1a0a2a"/>
+                    <polygon points="70,60 100,10 130,55 95,90" fill="#351752"/>
+                    <polygon points="70,60 95,90 110,115 45,125" fill="#160824"/>
+                </svg>
+            </div>
+
+            <!-- 5. Floating Purple Crystal Shards -->
+            <div class="absolute top-[32%] left-[34%] w-10 sm:w-14 animate-cosmic-float-1 opacity-85 rotate-[-25deg]">
+                <svg viewBox="0 0 50 100" fill="none" class="w-full h-auto">
+                    <polygon points="25,0 48,50 25,100 2,50" fill="#a855f7" stroke="#e9d5ff" stroke-width="1"/>
+                    <polygon points="25,0 48,50 25,100" fill="#7e22ce"/>
+                    <polygon points="25,0 2,50 25,100" fill="#c084fc"/>
+                </svg>
+            </div>
+
+            <div class="absolute top-[36%] left-[45%] w-7 sm:w-9 animate-cosmic-float-3 opacity-90 rotate-[15deg]">
+                <svg viewBox="0 0 40 90" fill="none" class="w-full h-auto">
+                    <polygon points="20,0 38,45 20,90 2,45" fill="#d946ef" stroke="#fae8ff" stroke-width="1"/>
+                    <polygon points="20,0 38,45 20,90" fill="#a21caf"/>
+                </svg>
+            </div>
+
+            <div class="absolute bottom-[36%] left-[29%] w-8 sm:w-11 animate-cosmic-float-2 opacity-80 rotate-[35deg]">
+                <svg viewBox="0 0 45 95" fill="none" class="w-full h-auto">
+                    <polygon points="22,0 42,48 22,95 2,48" fill="#c084fc" stroke="#f3e8ff" stroke-width="1"/>
+                    <polygon points="22,0 42,48 22,95" fill="#9333ea"/>
+                </svg>
+            </div>
+
+            <!-- Small Lime Floating Crystal (Upper Right) -->
+            <div class="absolute top-[28%] right-[23%] w-10 sm:w-14 animate-cosmic-float-2 opacity-95 rotate-[-18deg] drop-shadow-[0_0_15px_rgba(163,230,53,0.7)]">
+                <svg viewBox="0 0 60 40" fill="none" class="w-full h-auto">
+                    <polygon points="5,15 35,5 55,25 25,35" fill="#bef264" stroke="#d9f99d" stroke-width="1.5"/>
+                    <polygon points="5,15 35,5 55,25" fill="#d9f99d"/>
+                    <polygon points="5,15 25,35 55,25" fill="#84cc16"/>
+                </svg>
+            </div>
+
+            <!-- 6. HIGH-TECH OBSERVATION POD / CAPSULE (Center Right) -->
+            <div class="absolute top-[20%] right-[18%] sm:right-[22%] md:right-[26%] w-48 sm:w-64 md:w-80 animate-cosmic-float-3 drop-shadow-[0_20px_45px_rgba(0,0,0,0.8)] opacity-95">
+                <svg viewBox="0 0 280 280" fill="none" class="w-full h-auto">
+                    <defs>
+                        <radialGradient id="capsuleGrad" cx="35%" cy="35%" r="65%">
+                            <stop offset="0%" stop-color="#9d5bf0"/>
+                            <stop offset="45%" stop-color="#6b21a8"/>
+                            <stop offset="80%" stop-color="#3b0764"/>
+                            <stop offset="100%" stop-color="#1e0438"/>
+                        </radialGradient>
+                        <linearGradient id="windowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#3b156b"/>
+                            <stop offset="40%" stop-color="#210842"/>
+                            <stop offset="100%" stop-color="#0e021f"/>
+                        </linearGradient>
+                        <linearGradient id="glareGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#e9d5ff" stop-opacity="0.8"/>
+                            <stop offset="100%" stop-color="#c084fc" stop-opacity="0.1"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="140" cy="140" r="115" fill="url(#capsuleGrad)" stroke="#a855f7" stroke-width="2.5"/>
+                    <ellipse cx="140" cy="140" rx="114" ry="40" fill="none" stroke="#7e22ce" stroke-width="3" stroke-dasharray="10 4"/>
+                    <path d="M40 90 Q140 60 240 90" stroke="#c084fc" stroke-width="2" fill="none" opacity="0.6"/>
+                    <path d="M40 190 Q140 220 240 190" stroke="#581c87" stroke-width="2" fill="none"/>
+                    <rect x="75" y="95" width="130" height="85" rx="28" fill="url(#windowGrad)" stroke="#e9d5ff" stroke-width="3"/>
+                    <rect x="85" y="103" width="110" height="69" rx="20" fill="#140529" stroke="#9333ea" stroke-width="1.5"/>
+                    <polygon points="105,103 125,103 100,172 85,172" fill="url(#glareGrad)"/>
+                    <polygon points="135,103 145,103 125,172 115,172" fill="url(#glareGrad)" opacity="0.6"/>
+                    <ellipse cx="140" cy="155" rx="35" ry="12" fill="#7e22ce" opacity="0.4" filter="blur(4px)"/>
+                    <circle cx="140" cy="165" r="8" fill="#38bdf8" opacity="0.8" filter="blur(2px)"/>
+                    <line x1="140" y1="25" x2="140" y2="5" stroke="#c084fc" stroke-width="3"/>
+                    <circle cx="140" cy="4" r="4" fill="#a3e635" filter="drop-shadow(0 0 6px #a3e635)"/>
+                </svg>
+            </div>
+
+            <!-- 7. GIANT GLOWING LIME POLYHEDRON (Bottom Left) -->
+            <div class="absolute bottom-[4%] sm:bottom-[7%] left-[5%] sm:left-[9%] w-36 sm:w-52 md:w-60 animate-cosmic-float-1 drop-shadow-[0_0_35px_rgba(163,230,53,0.55)]">
+                <svg viewBox="0 0 220 220" fill="none" class="w-full h-auto">
+                    <polygon points="110,25 65,85 155,85" fill="#bef264" stroke="#d9f99d" stroke-width="1.5"/>
+                    <polygon points="110,25 65,85 20,65" fill="#a3e635" stroke="#d9f99d" stroke-width="1.5"/>
+                    <polygon points="110,25 155,85 200,65" fill="#84cc16" stroke="#d9f99d" stroke-width="1.5"/>
+                    <polygon points="65,85 20,65 30,135" fill="#65a30d" stroke="#bef264" stroke-width="1.5"/>
+                    <polygon points="65,85 155,85 110,155" fill="#a3e635" stroke="#d9f99d" stroke-width="1.5"/>
+                    <polygon points="155,85 200,65 190,135" fill="#65a30d" stroke="#bef264" stroke-width="1.5"/>
+                    <polygon points="65,85 110,155 30,135" fill="#4d7c0f" stroke="#a3e635" stroke-width="1.5"/>
+                    <polygon points="155,85 110,155 190,135" fill="#3f6212" stroke="#a3e635" stroke-width="1.5"/>
+                    <polygon points="110,155 30,135 70,195" fill="#365314" stroke="#65a30d" stroke-width="1.5"/>
+                    <polygon points="110,155 190,135 150,195" fill="#1a2e05" stroke="#65a30d" stroke-width="1.5"/>
+                    <polygon points="110,155 70,195 150,195" fill="#273e07" stroke="#84cc16" stroke-width="1.5"/>
+                    <polygon points="70,195 150,195 110,215" fill="#142303" stroke="#4d7c0f" stroke-width="1.5"/>
+                </svg>
+            </div>
+
+            <!-- 8. CURVED PLANET HORIZON AT BASE -->
+            <div class="absolute -bottom-16 sm:-bottom-24 left-[-15%] right-[-15%] h-56 sm:h-72 pointer-events-none">
+                <svg viewBox="0 0 1400 300" fill="none" preserveAspectRatio="none" class="w-full h-full">
+                    <defs>
+                        <linearGradient id="planetAtmo" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#c084fc" stop-opacity="0.9"/>
+                            <stop offset="15%" stop-color="#9333ea" stop-opacity="0.6"/>
+                            <stop offset="50%" stop-color="#581c87" stop-opacity="0.95"/>
+                            <stop offset="100%" stop-color="#140426" stop-opacity="1"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M0,120 Q700,-30 1400,120" stroke="#c084fc" stroke-width="6" opacity="0.9" filter="drop-shadow(0 0 15px #c084fc)"/>
+                    <path d="M0,124 Q700,-24 1400,124" stroke="#a855f7" stroke-width="14" opacity="0.4" filter="blur(6px)"/>
+                    <path d="M0,120 Q700,-30 1400,120 L1400,300 L0,300 Z" fill="url(#planetAtmo)"/>
+                    <path d="M100,140 Q700,10 1300,140" stroke="#3b0764" stroke-width="16" fill="none" opacity="0.7"/>
+                    <path d="M250,165 Q700,50 1150,165" stroke="#260645" stroke-width="24" fill="none" opacity="0.8"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Hero Top Navigation Bar -->
+        <header class="relative z-20 max-w-7xl w-full mx-auto px-6 py-6 sm:py-8 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-3 cursor-pointer enter-app-trigger" title="Launch SpeechShield Platform">
+                <div class="w-8 h-8 rounded-lg bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.4)]">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L4 5.5v6.2c0 5.3 3.4 10.2 8 11.3 4.6-1.1 8-6 8-11.3V5.5L12 2z"/>
+                    </svg>
+                </div>
+                <div class="flex items-baseline gap-2">
+                    <span class="font-bold text-lg sm:text-xl tracking-tight text-white">SpeechShield</span>
+                    <span class="text-xs sm:text-sm font-medium text-purple-300/80 tracking-wide">AI Guardian</span>
+                </div>
+            </div>
+
+            <!-- Top Right Nav Links -->
+            <div class="flex items-center gap-3 sm:gap-6 text-xs sm:text-sm font-medium">
+                <a href="/docs" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-block text-purple-200/70 hover:text-white transition-colors duration-200">
+                    Visit API Docs
+                </a>
+                <button type="button" class="enter-app-trigger px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium text-xs sm:text-sm tracking-wide backdrop-blur transition-all duration-200 shadow-[0_0_20px_rgba(255,255,255,0.08)] hover:shadow-[0_0_25px_rgba(168,85,247,0.3)]">
+                    Request a demo
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Hero Centerpiece -->
+        <div class="relative z-20 max-w-5xl w-full mx-auto px-6 py-12 sm:py-20 text-center flex flex-col items-center justify-center flex-1">
+            <!-- Headline matching user image -->
+            <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold text-white tracking-tight leading-[1.12] max-w-4xl drop-shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
+                Know Your Data. Control Your AI.<br class="hidden sm:inline" />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-100 via-white to-purple-200">Secure the Unknown.</span>
+            </h1>
+
+            <p class="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg text-purple-200/75 max-w-2xl font-normal leading-relaxed drop-shadow">
+                Real-time social media toxicity detection, dialect normalization, and automated hate-raid intelligence.
+            </p>
+
+            <!-- Center Enter / Mission CTA Button -->
+            <div class="mt-8 sm:mt-10">
+                <button id="enter-mission-btn" type="button" class="enter-app-trigger group relative inline-flex items-center gap-3.5 px-7 py-3.5 sm:px-8 sm:py-4 rounded-full bg-[#0d0717]/95 hover:bg-[#180a2b] border border-white/25 hover:border-purple-400/80 shadow-[0_0_35px_rgba(168,85,247,0.45)] hover:shadow-[0_0_55px_rgba(168,85,247,0.7)] text-white font-semibold text-sm sm:text-base tracking-wide transition-all duration-300">
+                    <span>Begin Your Mission</span>
+                    <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs sm:text-sm shadow transition-transform duration-300 group-hover:translate-x-1.5">
+                        &rarr;
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Bottom Footer Info -->
+        <footer class="relative z-20 max-w-7xl w-full mx-auto px-6 py-6 flex items-center justify-between text-[11px] sm:text-xs text-purple-300/60 font-medium">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Hybrid ML Fast-Pass &bull; BERTweet Core</span>
+            </div>
+            <div>
+                SpeechShield v0.1.0 &bull; Real-Time Moderation
+            </div>
+        </footer>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SPEECHSHIELD MODERATION WORKSPACE                                 -->
+    <!-- ================================================================= -->
+    <div id="app-workspace" class="min-h-screen flex" style="display: none;">
         <!-- Left Sidebar Navigation (Octave-style) -->
         <aside id="sidebar" class="w-64 shrink-0 sticky top-0 h-screen overflow-y-auto flex flex-col justify-between bg-white dark:bg-[#11131a] border-r border-gray-200 dark:border-white/[0.08] transition-all duration-200">
             <div>
                 <!-- Brand Bar -->
                 <div id="sidebar-brand-bar" class="h-14 px-4 flex items-center justify-between border-b border-gray-200 dark:border-white/[0.06]">
-                    <div id="sidebar-brand-logo" class="sidebar-label flex items-center gap-2.5 min-w-0">
+                    <div id="sidebar-brand-logo" class="sidebar-label flex items-center gap-2.5 min-w-0 cursor-pointer hover:opacity-80 transition" title="Return to Mission Landing">
                         <span class="inline-flex items-center justify-center w-6 h-6 rounded-md bg-accent-500/15 text-accent-500 dark:text-accent-400 shrink-0">
                             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                 <path d="M12 2L4 5.5v6.2c0 5.3 3.4 10.2 8 11.3 4.6-1.1 8-6 8-11.3V5.5L12 2z"/>
@@ -138,6 +373,10 @@
                     <span id="breadcrumb-page" class="font-medium text-gray-900 dark:text-gray-200">Live Text Analyzer</span>
                 </div>
                 <div class="flex items-center gap-2.5">
+                    <button id="exit-to-landing-btn" type="button" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 hover:bg-purple-500/20 transition" title="Return to Mission Landing">
+                        <span>🪐</span>
+                        <span>Mission Hub</span>
+                    </button>
                     <span id="api-status-pill" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400">
                         <span class="w-1.5 h-1.5 rounded-full bg-current"></span>
                         <span>Checking API...</span>
@@ -159,7 +398,7 @@
                 </div>
 
                 <!-- API Offline Notice -->
-                <div id="api-offline-banner" class="hidden mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-xs text-amber-700 dark:text-amber-300 flex items-center justify-between gap-3">
+                <div id="api-offline-banner" class="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-xs text-amber-700 dark:text-amber-300 flex items-center justify-between gap-3" style="display: none;">
                     <span>FastAPI backend unreachable or spinning up (Render free tier instances may take ~30s to wake from sleep).</span>
                     <button id="retry-health-btn" type="button" class="px-2.5 py-1 rounded-md font-medium bg-amber-500/20 hover:bg-amber-500/30 transition">Retry</button>
                 </div>
