@@ -32,32 +32,143 @@ html {
     background: rgba(142, 149, 165, 0.45);
 }
 
-/* Cosmic Landing Animations (Cyera AI Guardian Style) */
-@keyframes cosmic-float-1 {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-12px) rotate(2deg); }
+/* Cosmic Landing Animations (Cyera AI Guardian Style - High Motion) */
+@keyframes capsule-float {
+    0% {
+        transform: translate3d(0px, 0px, 0px) rotate(0deg) scale(1);
+    }
+    20% {
+        transform: translate3d(26px, -34px, 0px) rotate(4.5deg) scale(1.03);
+    }
+    45% {
+        transform: translate3d(-16px, -56px, 0px) rotate(-3.5deg) scale(1.07);
+    }
+    70% {
+        transform: translate3d(-36px, -26px, 0px) rotate(3deg) scale(0.97);
+    }
+    85% {
+        transform: translate3d(-12px, -8px, 0px) rotate(-2deg) scale(0.99);
+    }
+    100% {
+        transform: translate3d(0px, 0px, 0px) rotate(0deg) scale(1);
+    }
 }
 
-@keyframes cosmic-float-2 {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(14px) rotate(-3deg); }
+@keyframes polyhedron-float {
+    0% {
+        transform: translate3d(0px, 0px, 0px) rotate(0deg) scale(1);
+    }
+    25% {
+        transform: translate3d(-28px, -40px, 0px) rotate(-10deg) scale(1.06);
+    }
+    50% {
+        transform: translate3d(20px, -64px, 0px) rotate(8deg) scale(1.12);
+    }
+    75% {
+        transform: translate3d(36px, -28px, 0px) rotate(-6deg) scale(0.94);
+    }
+    100% {
+        transform: translate3d(0px, 0px, 0px) rotate(0deg) scale(1);
+    }
 }
 
-@keyframes cosmic-float-3 {
-    0%, 100% { transform: translateY(0px) scale(1); }
-    50% { transform: translateY(-8px) scale(1.02); }
+@keyframes planet-horizon-float {
+    0%, 100% {
+        transform: translateY(0px) scale(1);
+        filter: drop-shadow(0 0 16px rgba(192, 132, 252, 0.45));
+    }
+    50% {
+        transform: translateY(-28px) scale(1.04);
+        filter: drop-shadow(0 0 35px rgba(216, 180, 254, 0.8));
+    }
 }
 
-.animate-cosmic-float-1 {
-    animation: cosmic-float-1 8s ease-in-out infinite;
+@keyframes asteroid-drift-1 {
+    0% {
+        transform: translate3d(0px, 0px, 0px) rotate(0deg);
+    }
+    30% {
+        transform: translate3d(-22px, -36px, 0px) rotate(-9deg);
+    }
+    65% {
+        transform: translate3d(24px, -48px, 0px) rotate(11deg);
+    }
+    100% {
+        transform: translate3d(0px, 0px, 0px) rotate(0deg);
+    }
 }
 
-.animate-cosmic-float-2 {
-    animation: cosmic-float-2 11s ease-in-out infinite;
+@keyframes asteroid-drift-2 {
+    0% {
+        transform: translate3d(0px, 0px, 0px) rotate(0deg);
+    }
+    35% {
+        transform: translate3d(28px, -44px, 0px) rotate(13deg);
+    }
+    70% {
+        transform: translate3d(-26px, -22px, 0px) rotate(-10deg);
+    }
+    100% {
+        transform: translate3d(0px, 0px, 0px) rotate(0deg);
+    }
 }
 
-.animate-cosmic-float-3 {
-    animation: cosmic-float-3 9s ease-in-out infinite;
+@keyframes orbit-ring {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 56;
+    }
+}
+
+@keyframes beacon-pulse {
+    0%, 100% {
+        opacity: 0.55;
+        filter: drop-shadow(0 0 4px #a3e635);
+    }
+    50% {
+        opacity: 1;
+        filter: drop-shadow(0 0 14px #a3e635);
+    }
+}
+
+.animate-capsule-float {
+    animation: capsule-float 8.5s ease-in-out infinite;
+    will-change: transform;
+}
+
+.animate-polyhedron-float {
+    animation: polyhedron-float 7.5s ease-in-out infinite;
+    will-change: transform;
+}
+
+.animate-planet-horizon {
+    animation: planet-horizon-float 7s ease-in-out infinite;
+    will-change: transform;
+}
+
+.animate-asteroid-1 {
+    animation: asteroid-drift-1 9s ease-in-out infinite;
+    will-change: transform;
+}
+
+.animate-asteroid-2 {
+    animation: asteroid-drift-2 11s ease-in-out infinite;
+    will-change: transform;
+}
+
+.animate-orbit-ring {
+    animation: orbit-ring 4s linear infinite;
+}
+
+.animate-beacon-pulse {
+    animation: beacon-pulse 1.6s ease-in-out infinite;
+}
+
+.cosmic-parallax-layer {
+    transition: transform 0.08s ease-out;
+    will-change: transform;
 }
 
 .cosmic-hero-bg {

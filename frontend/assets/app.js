@@ -827,6 +827,57 @@
             });
         }
 
+        // Interactive 3D Cosmic Parallax for planets and celestial bodies
+        const heroSection = document.getElementById("landing-hero");
+        const parallaxLayers = document.querySelectorAll(".cosmic-parallax-layer");
+        if (heroSection && parallaxLayers.length > 0) {
+            let targetX = 0;
+            let targetY = 0;
+            let currentX = 0;
+            let currentY = 0;
+            let rafId = null;
+
+            function updateParallax() {
+                currentX += (targetX - currentX) * 0.08;
+                currentY += (targetY - currentY) * 0.08;
+
+                parallaxLayers.forEach((layer) => {
+                    const depth = parseFloat(layer.dataset.depth || "0.05");
+                    const moveX = (currentX * depth * 140).toFixed(2);
+                    const moveY = (currentY * depth * 140).toFixed(2);
+                    layer.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+                });
+
+                if (Math.abs(targetX - currentX) > 0.0005 || Math.abs(targetY - currentY) > 0.0005) {
+                    rafId = requestAnimationFrame(updateParallax);
+                } else {
+                    rafId = null;
+                }
+            }
+
+            function onMouseMove(e) {
+                const rect = heroSection.getBoundingClientRect();
+                targetX = (e.clientX - rect.left) / rect.width - 0.5;
+                targetY = (e.clientY - rect.top) / rect.height - 0.5;
+                if (!rafId) {
+                    rafId = requestAnimationFrame(updateParallax);
+                }
+            }
+
+            heroSection.addEventListener("mousemove", onMouseMove, { passive: true });
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener("deviceorientation", (e) => {
+                    if (e.gamma != null && e.beta != null) {
+                        targetX = Math.max(-0.5, Math.min(0.5, e.gamma / 60));
+                        targetY = Math.max(-0.5, Math.min(0.5, (e.beta - 45) / 60));
+                        if (!rafId) {
+                            rafId = requestAnimationFrame(updateParallax);
+                        }
+                    }
+                }, { passive: true });
+            }
+        }
+
         // Route on initial load: open workspace if #app or ?view=app, else show landing hero
         if (window.location.hash === "#app" || params.get("view") === "app") {
             showWorkspace();

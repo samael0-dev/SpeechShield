@@ -31,7 +31,7 @@
             },
         };
     </script>
-    <link rel="stylesheet" href="./assets/style.css?v=7" />
+    <link rel="stylesheet" href="./assets/style.css?v=8" />
 </head>
 <body class="min-h-screen bg-[#f7f8fa] text-[#111827] dark:bg-[#0c0d12] dark:text-[#f3f4f6] transition-colors duration-200 antialiased">
     <!-- ================================================================= -->
@@ -59,149 +59,171 @@
         <!-- Floating Cosmic Visual Elements -->
         <div class="absolute inset-0 pointer-events-none overflow-hidden">
             <!-- 1. Floating Asteroid / Space Rock (Top Left) -->
-            <div class="absolute top-[10%] sm:top-[14%] left-[2%] sm:left-[3%] w-20 sm:w-28 md:w-40 animate-cosmic-float-1 opacity-80 sm:opacity-90 drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]">
-                <svg viewBox="0 0 160 140" fill="none" class="w-full h-auto">
-                    <polygon points="40,20 110,15 150,55 135,115 85,135 25,110 10,60" fill="#2d1547" stroke="#4c2277" stroke-width="2"/>
-                    <polygon points="40,20 85,55 25,110 10,60" fill="#220e38"/>
-                    <polygon points="85,55 110,15 150,55 115,85" fill="#3b1d5c"/>
-                    <polygon points="85,55 115,85 135,115 85,135" fill="#1b0a2c"/>
-                    <polygon points="25,110 85,55 85,135" fill="#170827"/>
-                    <circle cx="55" cy="45" r="9" fill="#190a2a" stroke="#4c2277" stroke-width="1.5"/>
-                    <circle cx="115" cy="75" r="14" fill="#190a2a" stroke="#4c2277" stroke-width="1.5"/>
-                </svg>
+            <div class="cosmic-parallax-layer absolute top-[8%] sm:top-[12%] left-[2%] sm:left-[3%] pointer-events-none" data-depth="0.05">
+                <div class="w-20 sm:w-28 md:w-40 animate-asteroid-1 opacity-80 sm:opacity-90 drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]">
+                    <svg viewBox="0 0 160 140" fill="none" class="w-full h-auto">
+                        <polygon points="40,20 110,15 150,55 135,115 85,135 25,110 10,60" fill="#2d1547" stroke="#4c2277" stroke-width="2"/>
+                        <polygon points="40,20 85,55 25,110 10,60" fill="#220e38"/>
+                        <polygon points="85,55 110,15 150,55 115,85" fill="#3b1d5c"/>
+                        <polygon points="85,55 115,85 135,115 85,135" fill="#1b0a2c"/>
+                        <polygon points="25,110 85,55 85,135" fill="#170827"/>
+                        <circle cx="55" cy="45" r="9" fill="#190a2a" stroke="#4c2277" stroke-width="1.5"/>
+                        <circle cx="115" cy="75" r="14" fill="#190a2a" stroke="#4c2277" stroke-width="1.5"/>
+                    </svg>
+                </div>
             </div>
 
             <!-- 2. Floating Asteroid (Top Right) -->
-            <div class="absolute top-[6%] sm:top-[8%] right-[4%] sm:right-[11%] w-16 sm:w-24 md:w-32 animate-cosmic-float-2 opacity-75 sm:opacity-85">
-                <svg viewBox="0 0 130 120" fill="none" class="w-full h-auto">
-                    <polygon points="30,10 95,15 120,60 90,110 35,105 10,65" fill="#29123f" stroke="#441e69" stroke-width="2"/>
-                    <polygon points="30,10 65,55 10,65" fill="#1c0b2c"/>
-                    <polygon points="65,55 95,15 120,60" fill="#361854"/>
-                    <polygon points="65,55 120,60 90,110" fill="#1f0c32"/>
-                </svg>
+            <div class="cosmic-parallax-layer absolute top-[5%] sm:top-[7%] right-[4%] sm:right-[11%] pointer-events-none" data-depth="0.04">
+                <div class="w-16 sm:w-24 md:w-32 animate-asteroid-2 opacity-75 sm:opacity-85">
+                    <svg viewBox="0 0 130 120" fill="none" class="w-full h-auto">
+                        <polygon points="30,10 95,15 120,60 90,110 35,105 10,65" fill="#29123f" stroke="#441e69" stroke-width="2"/>
+                        <polygon points="30,10 65,55 10,65" fill="#1c0b2c"/>
+                        <polygon points="65,55 95,15 120,60" fill="#361854"/>
+                        <polygon points="65,55 120,60 90,110" fill="#1f0c32"/>
+                    </svg>
+                </div>
             </div>
 
             <!-- 3. Floating Small Asteroid (Far Right) -->
-            <div class="hidden sm:block absolute top-[28%] right-[3%] w-20 sm:w-24 animate-cosmic-float-1 opacity-70">
-                <svg viewBox="0 0 100 90" fill="none" class="w-full h-auto">
-                    <polygon points="25,10 80,18 95,55 65,85 20,75 5,40" fill="#27113c" stroke="#461e6c" stroke-width="1.5"/>
-                    <polygon points="25,10 50,45 5,40" fill="#1a0a29"/>
-                    <polygon points="50,45 80,18 95,55 60,65" fill="#361754"/>
-                </svg>
+            <div class="hidden sm:block cosmic-parallax-layer absolute top-[28%] right-[3%] pointer-events-none" data-depth="0.06">
+                <div class="w-20 sm:w-24 animate-asteroid-1 opacity-70">
+                    <svg viewBox="0 0 100 90" fill="none" class="w-full h-auto">
+                        <polygon points="25,10 80,18 95,55 65,85 20,75 5,40" fill="#27113c" stroke="#461e6c" stroke-width="1.5"/>
+                        <polygon points="25,10 50,45 5,40" fill="#1a0a29"/>
+                        <polygon points="50,45 80,18 95,55 60,65" fill="#361754"/>
+                    </svg>
+                </div>
             </div>
 
             <!-- 4. Floating Asteroid (Bottom Right) -->
-            <div class="absolute bottom-[16%] sm:bottom-[22%] right-[4%] sm:right-[14%] w-18 sm:w-24 md:w-36 animate-cosmic-float-2 opacity-70 sm:opacity-80">
-                <svg viewBox="0 0 140 130" fill="none" class="w-full h-auto">
-                    <polygon points="35,15 100,10 130,55 110,115 45,125 10,70" fill="#28113e" stroke="#421c66" stroke-width="2"/>
-                    <polygon points="35,15 70,60 10,70" fill="#1a0a2a"/>
-                    <polygon points="70,60 100,10 130,55 95,90" fill="#351752"/>
-                    <polygon points="70,60 95,90 110,115 45,125" fill="#160824"/>
-                </svg>
+            <div class="cosmic-parallax-layer absolute bottom-[16%] sm:bottom-[22%] right-[4%] sm:right-[14%] pointer-events-none" data-depth="0.05">
+                <div class="w-18 sm:w-24 md:w-36 animate-asteroid-2 opacity-70 sm:opacity-80">
+                    <svg viewBox="0 0 140 130" fill="none" class="w-full h-auto">
+                        <polygon points="35,15 100,10 130,55 110,115 45,125 10,70" fill="#28113e" stroke="#421c66" stroke-width="2"/>
+                        <polygon points="35,15 70,60 10,70" fill="#1a0a2a"/>
+                        <polygon points="70,60 100,10 130,55 95,90" fill="#351752"/>
+                        <polygon points="70,60 95,90 110,115 45,125" fill="#160824"/>
+                    </svg>
+                </div>
             </div>
 
             <!-- 5. Floating Purple Crystal Shards -->
-            <div class="absolute top-[32%] left-[26%] sm:left-[34%] w-8 sm:w-14 animate-cosmic-float-1 opacity-75 sm:opacity-85 rotate-[-25deg]">
-                <svg viewBox="0 0 50 100" fill="none" class="w-full h-auto">
-                    <polygon points="25,0 48,50 25,100 2,50" fill="#a855f7" stroke="#e9d5ff" stroke-width="1"/>
-                    <polygon points="25,0 48,50 25,100" fill="#7e22ce"/>
-                    <polygon points="25,0 2,50 25,100" fill="#c084fc"/>
-                </svg>
+            <div class="cosmic-parallax-layer absolute top-[30%] left-[24%] sm:left-[32%] pointer-events-none" data-depth="0.07">
+                <div class="w-8 sm:w-14 animate-asteroid-1 opacity-75 sm:opacity-85 rotate-[-25deg]">
+                    <svg viewBox="0 0 50 100" fill="none" class="w-full h-auto">
+                        <polygon points="25,0 48,50 25,100 2,50" fill="#a855f7" stroke="#e9d5ff" stroke-width="1"/>
+                        <polygon points="25,0 48,50 25,100" fill="#7e22ce"/>
+                        <polygon points="25,0 2,50 25,100" fill="#c084fc"/>
+                    </svg>
+                </div>
             </div>
 
-            <div class="hidden sm:block absolute top-[36%] left-[45%] w-7 sm:w-9 animate-cosmic-float-3 opacity-90 rotate-[15deg]">
-                <svg viewBox="0 0 40 90" fill="none" class="w-full h-auto">
-                    <polygon points="20,0 38,45 20,90 2,45" fill="#d946ef" stroke="#fae8ff" stroke-width="1"/>
-                    <polygon points="20,0 38,45 20,90" fill="#a21caf"/>
-                </svg>
+            <div class="hidden sm:block cosmic-parallax-layer absolute top-[36%] left-[45%] pointer-events-none" data-depth="0.04">
+                <div class="w-7 sm:w-9 animate-asteroid-2 opacity-90 rotate-[15deg]">
+                    <svg viewBox="0 0 40 90" fill="none" class="w-full h-auto">
+                        <polygon points="20,0 38,45 20,90 2,45" fill="#d946ef" stroke="#fae8ff" stroke-width="1"/>
+                        <polygon points="20,0 38,45 20,90" fill="#a21caf"/>
+                    </svg>
+                </div>
             </div>
 
-            <div class="hidden sm:block absolute bottom-[36%] left-[29%] w-8 sm:w-11 animate-cosmic-float-2 opacity-80 rotate-[35deg]">
-                <svg viewBox="0 0 45 95" fill="none" class="w-full h-auto">
-                    <polygon points="22,0 42,48 22,95 2,48" fill="#c084fc" stroke="#f3e8ff" stroke-width="1"/>
-                    <polygon points="22,0 42,48 22,95" fill="#9333ea"/>
-                </svg>
+            <div class="hidden sm:block cosmic-parallax-layer absolute bottom-[36%] left-[29%] pointer-events-none" data-depth="0.05">
+                <div class="w-8 sm:w-11 animate-asteroid-1 opacity-80 rotate-[35deg]">
+                    <svg viewBox="0 0 45 95" fill="none" class="w-full h-auto">
+                        <polygon points="22,0 42,48 22,95 2,48" fill="#c084fc" stroke="#f3e8ff" stroke-width="1"/>
+                        <polygon points="22,0 42,48 22,95" fill="#9333ea"/>
+                    </svg>
+                </div>
             </div>
 
             <!-- Small Lime Floating Crystal (Upper Right) -->
-            <div class="hidden sm:block absolute top-[28%] right-[23%] w-10 sm:w-14 animate-cosmic-float-2 opacity-95 rotate-[-18deg] drop-shadow-[0_0_15px_rgba(163,230,53,0.7)]">
-                <svg viewBox="0 0 60 40" fill="none" class="w-full h-auto">
-                    <polygon points="5,15 35,5 55,25 25,35" fill="#bef264" stroke="#d9f99d" stroke-width="1.5"/>
-                    <polygon points="5,15 35,5 55,25" fill="#d9f99d"/>
-                    <polygon points="5,15 25,35 55,25" fill="#84cc16"/>
-                </svg>
+            <div class="hidden sm:block cosmic-parallax-layer absolute top-[28%] right-[23%] pointer-events-none" data-depth="0.06">
+                <div class="w-10 sm:w-14 animate-asteroid-2 opacity-95 rotate-[-18deg] drop-shadow-[0_0_15px_rgba(163,230,53,0.7)]">
+                    <svg viewBox="0 0 60 40" fill="none" class="w-full h-auto">
+                        <polygon points="5,15 35,5 55,25 25,35" fill="#bef264" stroke="#d9f99d" stroke-width="1.5"/>
+                        <polygon points="5,15 35,5 55,25" fill="#d9f99d"/>
+                        <polygon points="5,15 25,35 55,25" fill="#84cc16"/>
+                    </svg>
+                </div>
             </div>
 
-            <!-- 6. HIGH-TECH OBSERVATION POD / CAPSULE (Center Right) -->
-            <div class="absolute top-[12%] sm:top-[16%] md:top-[20%] right-[2%] sm:right-[16%] md:right-[26%] w-32 sm:w-56 md:w-80 animate-cosmic-float-3 drop-shadow-[0_20px_45px_rgba(0,0,0,0.8)] opacity-35 sm:opacity-75 md:opacity-95">
-                <svg viewBox="0 0 280 280" fill="none" class="w-full h-auto">
-                    <defs>
-                        <radialGradient id="capsuleGrad" cx="35%" cy="35%" r="65%">
-                            <stop offset="0%" stop-color="#9d5bf0"/>
-                            <stop offset="45%" stop-color="#6b21a8"/>
-                            <stop offset="80%" stop-color="#3b0764"/>
-                            <stop offset="100%" stop-color="#1e0438"/>
-                        </radialGradient>
-                        <linearGradient id="windowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#3b156b"/>
-                            <stop offset="40%" stop-color="#210842"/>
-                            <stop offset="100%" stop-color="#0e021f"/>
-                        </linearGradient>
-                        <linearGradient id="glareGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stop-color="#e9d5ff" stop-opacity="0.8"/>
-                            <stop offset="100%" stop-color="#c084fc" stop-opacity="0.1"/>
-                        </linearGradient>
-                    </defs>
-                    <circle cx="140" cy="140" r="115" fill="url(#capsuleGrad)" stroke="#a855f7" stroke-width="2.5"/>
-                    <ellipse cx="140" cy="140" rx="114" ry="40" fill="none" stroke="#7e22ce" stroke-width="3" stroke-dasharray="10 4"/>
-                    <path d="M40 90 Q140 60 240 90" stroke="#c084fc" stroke-width="2" fill="none" opacity="0.6"/>
-                    <path d="M40 190 Q140 220 240 190" stroke="#581c87" stroke-width="2" fill="none"/>
-                    <rect x="75" y="95" width="130" height="85" rx="28" fill="url(#windowGrad)" stroke="#e9d5ff" stroke-width="3"/>
-                    <rect x="85" y="103" width="110" height="69" rx="20" fill="#140529" stroke="#9333ea" stroke-width="1.5"/>
-                    <polygon points="105,103 125,103 100,172 85,172" fill="url(#glareGrad)"/>
-                    <polygon points="135,103 145,103 125,172 115,172" fill="url(#glareGrad)" opacity="0.6"/>
-                    <ellipse cx="140" cy="155" rx="35" ry="12" fill="#7e22ce" opacity="0.4" filter="blur(4px)"/>
-                    <circle cx="140" cy="165" r="8" fill="#38bdf8" opacity="0.8" filter="blur(2px)"/>
-                    <line x1="140" y1="25" x2="140" y2="5" stroke="#c084fc" stroke-width="3"/>
-                    <circle cx="140" cy="4" r="4" fill="#a3e635" filter="drop-shadow(0 0 6px #a3e635)"/>
-                </svg>
+            <!-- 6. HIGH-TECH OBSERVATION POD / CAPSULE PLANET (Center Right) -->
+            <div class="cosmic-parallax-layer absolute top-[10%] sm:top-[14%] md:top-[18%] right-[2%] sm:right-[16%] md:right-[26%] pointer-events-none" data-depth="0.07">
+                <div class="w-32 sm:w-56 md:w-80 animate-capsule-float drop-shadow-[0_20px_45px_rgba(0,0,0,0.8)] opacity-40 sm:opacity-80 md:opacity-95">
+                    <svg viewBox="0 0 280 280" fill="none" class="w-full h-auto">
+                        <defs>
+                            <radialGradient id="capsuleGrad" cx="35%" cy="35%" r="65%">
+                                <stop offset="0%" stop-color="#9d5bf0"/>
+                                <stop offset="45%" stop-color="#6b21a8"/>
+                                <stop offset="80%" stop-color="#3b0764"/>
+                                <stop offset="100%" stop-color="#1e0438"/>
+                            </radialGradient>
+                            <linearGradient id="windowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#3b156b"/>
+                                <stop offset="40%" stop-color="#210842"/>
+                                <stop offset="100%" stop-color="#0e021f"/>
+                            </linearGradient>
+                            <linearGradient id="glareGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#e9d5ff" stop-opacity="0.8"/>
+                                <stop offset="100%" stop-color="#c084fc" stop-opacity="0.1"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="140" cy="140" r="115" fill="url(#capsuleGrad)" stroke="#a855f7" stroke-width="2.5"/>
+                        <ellipse cx="140" cy="140" rx="114" ry="40" fill="none" stroke="#7e22ce" stroke-width="3" stroke-dasharray="10 4" class="animate-orbit-ring"/>
+                        <path d="M40 90 Q140 60 240 90" stroke="#c084fc" stroke-width="2" fill="none" opacity="0.6"/>
+                        <path d="M40 190 Q140 220 240 190" stroke="#581c87" stroke-width="2" fill="none"/>
+                        <rect x="75" y="95" width="130" height="85" rx="28" fill="url(#windowGrad)" stroke="#e9d5ff" stroke-width="3"/>
+                        <rect x="85" y="103" width="110" height="69" rx="20" fill="#140529" stroke="#9333ea" stroke-width="1.5"/>
+                        <polygon points="105,103 125,103 100,172 85,172" fill="url(#glareGrad)"/>
+                        <polygon points="135,103 145,103 125,172 115,172" fill="url(#glareGrad)" opacity="0.6"/>
+                        <ellipse cx="140" cy="155" rx="35" ry="12" fill="#7e22ce" opacity="0.4" filter="blur(4px)"/>
+                        <circle cx="140" cy="165" r="8" fill="#38bdf8" opacity="0.8" filter="blur(2px)"/>
+                        <line x1="140" y1="25" x2="140" y2="5" stroke="#c084fc" stroke-width="3"/>
+                        <circle cx="140" cy="4" r="4" fill="#a3e635" class="animate-beacon-pulse" filter="drop-shadow(0 0 6px #a3e635)"/>
+                    </svg>
+                </div>
             </div>
 
-            <!-- 7. GIANT GLOWING LIME POLYHEDRON (Bottom Left) -->
-            <div class="absolute bottom-[2%] sm:bottom-[6%] left-[2%] sm:left-[8%] w-24 sm:w-44 md:w-60 animate-cosmic-float-1 drop-shadow-[0_0_20px_rgba(163,230,53,0.35)] sm:drop-shadow-[0_0_35px_rgba(163,230,53,0.55)] opacity-50 sm:opacity-85 md:opacity-100 pointer-events-none">
-                <svg viewBox="0 0 220 220" fill="none" class="w-full h-auto">
-                    <polygon points="110,25 65,85 155,85" fill="#bef264" stroke="#d9f99d" stroke-width="1.5"/>
-                    <polygon points="110,25 65,85 20,65" fill="#a3e635" stroke="#d9f99d" stroke-width="1.5"/>
-                    <polygon points="110,25 155,85 200,65" fill="#84cc16" stroke="#d9f99d" stroke-width="1.5"/>
-                    <polygon points="65,85 20,65 30,135" fill="#65a30d" stroke="#bef264" stroke-width="1.5"/>
-                    <polygon points="65,85 155,85 110,155" fill="#a3e635" stroke="#d9f99d" stroke-width="1.5"/>
-                    <polygon points="155,85 200,65 190,135" fill="#65a30d" stroke="#bef264" stroke-width="1.5"/>
-                    <polygon points="65,85 110,155 30,135" fill="#4d7c0f" stroke="#a3e635" stroke-width="1.5"/>
-                    <polygon points="155,85 110,155 190,135" fill="#3f6212" stroke="#a3e635" stroke-width="1.5"/>
-                    <polygon points="110,155 30,135 70,195" fill="#365314" stroke="#65a30d" stroke-width="1.5"/>
-                    <polygon points="110,155 190,135 150,195" fill="#1a2e05" stroke="#65a30d" stroke-width="1.5"/>
-                    <polygon points="110,155 70,195 150,195" fill="#273e07" stroke="#84cc16" stroke-width="1.5"/>
-                    <polygon points="70,195 150,195 110,215" fill="#142303" stroke="#4d7c0f" stroke-width="1.5"/>
-                </svg>
+            <!-- 7. GIANT GLOWING LIME POLYHEDRON PLANET (Bottom Left) -->
+            <div class="cosmic-parallax-layer absolute bottom-[2%] sm:bottom-[6%] left-[2%] sm:left-[8%] pointer-events-none" data-depth="0.09">
+                <div class="w-24 sm:w-44 md:w-60 animate-polyhedron-float drop-shadow-[0_0_20px_rgba(163,230,53,0.35)] sm:drop-shadow-[0_0_35px_rgba(163,230,53,0.55)] opacity-50 sm:opacity-85 md:opacity-100">
+                    <svg viewBox="0 0 220 220" fill="none" class="w-full h-auto">
+                        <polygon points="110,25 65,85 155,85" fill="#bef264" stroke="#d9f99d" stroke-width="1.5"/>
+                        <polygon points="110,25 65,85 20,65" fill="#a3e635" stroke="#d9f99d" stroke-width="1.5"/>
+                        <polygon points="110,25 155,85 200,65" fill="#84cc16" stroke="#d9f99d" stroke-width="1.5"/>
+                        <polygon points="65,85 20,65 30,135" fill="#65a30d" stroke="#bef264" stroke-width="1.5"/>
+                        <polygon points="65,85 155,85 110,155" fill="#a3e635" stroke="#d9f99d" stroke-width="1.5"/>
+                        <polygon points="155,85 200,65 190,135" fill="#65a30d" stroke="#bef264" stroke-width="1.5"/>
+                        <polygon points="65,85 110,155 30,135" fill="#4d7c0f" stroke="#a3e635" stroke-width="1.5"/>
+                        <polygon points="155,85 110,155 190,135" fill="#3f6212" stroke="#a3e635" stroke-width="1.5"/>
+                        <polygon points="110,155 30,135 70,195" fill="#365314" stroke="#65a30d" stroke-width="1.5"/>
+                        <polygon points="110,155 190,135 150,195" fill="#1a2e05" stroke="#65a30d" stroke-width="1.5"/>
+                        <polygon points="110,155 70,195 150,195" fill="#273e07" stroke="#84cc16" stroke-width="1.5"/>
+                        <polygon points="70,195 150,195 110,215" fill="#142303" stroke="#4d7c0f" stroke-width="1.5"/>
+                    </svg>
+                </div>
             </div>
 
             <!-- 8. CURVED PLANET HORIZON AT BASE -->
-            <div class="absolute -bottom-10 sm:-bottom-20 md:-bottom-24 left-[-20%] sm:left-[-15%] right-[-20%] sm:right-[-15%] h-44 sm:h-64 md:h-72 pointer-events-none">
-                <svg viewBox="0 0 1400 300" fill="none" preserveAspectRatio="none" class="w-full h-full">
-                    <defs>
-                        <linearGradient id="planetAtmo" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stop-color="#c084fc" stop-opacity="0.9"/>
-                            <stop offset="15%" stop-color="#9333ea" stop-opacity="0.6"/>
-                            <stop offset="50%" stop-color="#581c87" stop-opacity="0.95"/>
-                            <stop offset="100%" stop-color="#140426" stop-opacity="1"/>
-                        </linearGradient>
-                    </defs>
-                    <path d="M0,120 Q700,-30 1400,120" stroke="#c084fc" stroke-width="6" opacity="0.9" filter="drop-shadow(0 0 15px #c084fc)"/>
-                    <path d="M0,124 Q700,-24 1400,124" stroke="#a855f7" stroke-width="14" opacity="0.4" filter="blur(6px)"/>
-                    <path d="M0,120 Q700,-30 1400,120 L1400,300 L0,300 Z" fill="url(#planetAtmo)"/>
-                    <path d="M100,140 Q700,10 1300,140" stroke="#3b0764" stroke-width="16" fill="none" opacity="0.7"/>
-                    <path d="M250,165 Q700,50 1150,165" stroke="#260645" stroke-width="24" fill="none" opacity="0.8"/>
-                </svg>
+            <div class="cosmic-parallax-layer absolute -bottom-10 sm:-bottom-20 md:-bottom-24 left-[-20%] sm:left-[-15%] right-[-20%] sm:right-[-15%] h-44 sm:h-64 md:h-72 pointer-events-none" data-depth="0.025">
+                <div class="w-full h-full animate-planet-horizon">
+                    <svg viewBox="0 0 1400 300" fill="none" preserveAspectRatio="none" class="w-full h-full">
+                        <defs>
+                            <linearGradient id="planetAtmo" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#c084fc" stop-opacity="0.9"/>
+                                <stop offset="15%" stop-color="#9333ea" stop-opacity="0.6"/>
+                                <stop offset="50%" stop-color="#581c87" stop-opacity="0.95"/>
+                                <stop offset="100%" stop-color="#140426" stop-opacity="1"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M0,120 Q700,-30 1400,120" stroke="#c084fc" stroke-width="6" opacity="0.9" filter="drop-shadow(0 0 15px #c084fc)"/>
+                        <path d="M0,124 Q700,-24 1400,124" stroke="#a855f7" stroke-width="14" opacity="0.4" filter="blur(6px)"/>
+                        <path d="M0,120 Q700,-30 1400,120 L1400,300 L0,300 Z" fill="url(#planetAtmo)"/>
+                        <path d="M100,140 Q700,10 1300,140" stroke="#3b0764" stroke-width="16" fill="none" opacity="0.7"/>
+                        <path d="M250,165 Q700,50 1150,165" stroke="#260645" stroke-width="24" fill="none" opacity="0.8"/>
+                    </svg>
+                </div>
             </div>
         </div>
 
@@ -722,6 +744,6 @@
         </div>
     </div>
 
-    <script src="./assets/app.js?v=7"></script>
+    <script src="./assets/app.js?v=8"></script>
 </body>
 </html>
