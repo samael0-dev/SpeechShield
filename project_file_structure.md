@@ -45,9 +45,14 @@ social-toxicity-detector/
 │
 ├── .env.example                # Template for environment variables (API keys, DB URIs)
 ├── .gitignore                  # Files to exclude from version control (data/, .env, __pycache__)
+├── .python-version             # Python version specification for Render (3.11.9)
+├── build.sh                    # Build script for Render native Python runtime
 ├── docker-compose.yml          # Orchestrates the API, Frontend, and message broker (Kafka)
+├── Dockerfile                  # Unified production Docker image for Render Web Service
 ├── Dockerfile.api              # Docker configuration for the FastAPI backend
 ├── Dockerfile.frontend         # Docker configuration for the Dashboard
+├── Procfile                    # Web process command definition for Render / Heroku
+├── render.yaml                 # Render Blueprint configuration for automated cloud deployment
 ├── requirements.txt            # Python dependencies (PyTorch, FastAPI, transformers, ekphrasis, etc.)
 └── README.md                   # Project documentation and setup instructions
 ```

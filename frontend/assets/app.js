@@ -1,7 +1,20 @@
 (() => {
     const params = new URLSearchParams(window.location.search);
+    if (params.get("api")) {
+        try {
+            window.localStorage.setItem("speechshield_api_url", params.get("api"));
+        } catch {}
+    }
+    const storedApi = (() => {
+        try {
+            return window.localStorage.getItem("speechshield_api_url");
+        } catch {
+            return null;
+        }
+    })();
     const API_BASE = (
         params.get("api") ||
+        storedApi ||
         (window.location.protocol === "file:"
             ? "http://localhost:8000"
             : window.location.port === "8501"

@@ -1,0 +1,43 @@
+# Render Blueprint specification for SpeechShield
+# Docs: https://render.com/docs/blueprint-spec
+
+services:
+  # SpeechShield Unified Web Service (FastAPI API + Tailwind Moderation Dashboard)
+  - type: web
+    name: speechshield
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: INFO
+      - key: MODEL_BACKEND
+        value: hybrid
+      - key: TOXICITY_THRESHOLD
+        value: "0.50"
+      - key: BORDERLINE_LOW
+        value: "0.60"
+      - key: BORDERLINE_HIGH
+        value: "0.80"
+      - key: FAST_PASS_SAFE_THRESHOLD
+        value: "0.20"
+      # By default, SpeechShield uses SQLite (zero-config, no external database needed).
+      # If you attach a Render PostgreSQL database, uncomment the block below:
+      # - key: DATABASE_URL
+      #   fromDatabase:
+      #     name: speechshield-db
+      #     property: connectionString
+
+# Optional: Managed PostgreSQL instance on Render (free for 30 days)
+# Uncomment to automatically provision a PostgreSQL database alongside your web service:
+# databases:
+#   - name: speechshield-db
+#     databaseName: toxicity_db
+#     user: toxicity_user
+#     plan: free
+#     region: oregon

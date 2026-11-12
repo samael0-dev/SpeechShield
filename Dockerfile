@@ -1,0 +1,26 @@
+FROM python:3.11-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    DEBIAN_FRONTEND=noninteractive \
+    PORT=8000
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+COPY src ./src
+COPY scripts ./scripts
+COPY frontend ./frontend
+COPY data ./data
+
+# Pre-bootstrap baseline weights during container build for instant startup
+RUN mkdir -p /app/data/raw /app/data/processed /app/data/weights \
+    && python scripts/scrape_data.py --source sample \
+    && python scripts/train_model.py --mode baseline
+
+EXPOSE 8000
+
+CMD ["sh", "-c", "uvicorn src.api.main:app --host 0.0.0.0 --port ${PORT:-8000} --proxy-headers"]

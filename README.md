@@ -21,6 +21,7 @@
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=black)
 ![Pytest](https://img.shields.io/badge/Pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white)
 
 </div>
@@ -225,6 +226,79 @@ docker compose up --build
 
 ---
 
+## Render Deployment
+
+SpeechShield is fully configured for deployment on **[Render](https://render.com/)**, serving both the FastAPI REST endpoints and the Tailwind CSS Moderation Dashboard within a single unified web service.
+
+### Option 1 — 1-Click Blueprint Deployment (Recommended)
+
+Render Blueprints let you configure your entire service automatically using the included [`render.yaml`](render.yaml) file:
+
+1. Push your repository to **GitHub** or **GitLab**.
+2. Log into the **[Render Dashboard](https://dashboard.render.com/)**.
+3. Click **New +** and select **Blueprint**.
+4. Connect your SpeechShield repository.
+5. Render will automatically parse `render.yaml`, configure the Web Service, health check (`/health`), and environment variables.
+6. Click **Apply**. Render builds the Docker image and provisions your live deployment (e.g., `https://speechshield.onrender.com`).
+
+---
+
+### Option 2 — Manual Web Service Setup (Docker)
+
+To deploy using Docker through the Render web console:
+
+1. Click **New +** > **Web Service**.
+2. Connect your repository.
+3. Configure the service settings:
+   - **Name:** `speechshield`
+   - **Environment / Runtime:** `Docker`
+   - **Dockerfile Path:** `./Dockerfile`
+   - **Region:** Any region (e.g., `Oregon (US West)` or `Frankfurt (EU)`)
+   - **Plan Type:** `Free` (or `Starter`)
+   - **Health Check Path:** `/health`
+4. In the **Environment Variables** section, add:
+   | Variable | Value | Notes |
+   | --- | --- | --- |
+   | `APP_ENV` | `production` | Production mode |
+   | `MODEL_BACKEND` | `hybrid` | Fast-pass baseline + transformer fallback |
+   | `LOG_LEVEL` | `INFO` | Logging verbosity |
+   | `TOXICITY_THRESHOLD` | `0.50` | Primary classification threshold |
+   | `BORDERLINE_LOW` | `0.60` | Lower bound for human review queue |
+   | `BORDERLINE_HIGH` | `0.80` | Upper bound for human review queue |
+   | `FAST_PASS_SAFE_THRESHOLD` | `0.20` | Threshold for instant safe clearing |
+5. Click **Create Web Service**.
+
+---
+
+### Option 3 — Native Python Runtime (Without Docker)
+
+You can also deploy directly on Render's native Python runtime using [`build.sh`](build.sh) and [`Procfile`](Procfile):
+
+- **Runtime:** `Python 3`
+- **Build Command:** `./build.sh` (or `pip install -r requirements.txt && python scripts/scrape_data.py --source sample && python scripts/train_model.py --mode baseline`)
+- **Start Command:** `uvicorn src.api.main:app --host 0.0.0.0 --port $PORT --proxy-headers`
+- **Health Check Path:** `/health`
+
+---
+
+### Database Setup on Render
+
+- **Default (Zero-Config SQLite):** By default, SpeechShield stores moderation logs in `./data/toxicity_logs.db`. No database creation or configuration is required.
+- **Render Managed PostgreSQL (Optional):**
+  1. Click **New +** > **PostgreSQL** in Render.
+  2. Copy the **Internal Database URL** (format: `postgres://user:password@dpg-.../db`).
+  3. Add it as the `DATABASE_URL` environment variable in your Web Service settings.
+  4. SpeechShield automatically converts `postgres://` to `postgresql+psycopg2://` and maintains connection pool recycling (`pool_pre_ping=True`, `pool_recycle=300`).
+
+---
+
+### Render Free Tier Notes
+
+- **Cold Starts:** Free instances spin down after 15 minutes of inactivity. First requests after idle may take ~30–50 seconds while the instance wakes up. The moderation dashboard provides an automatic offline notice with a manual retry button.
+- **Memory Footprint:** The default hybrid baseline classifier consumes ~98 MB RAM, well within Render's 512 MB free tier allowance.
+
+---
+
 ## Testing & Code Quality
 
 SpeechShield includes automated unit and FastAPI integration tests covering social text cleaning, obfuscated slur restoration, toxicity prediction, borderline human review workflows, stream simulation, hate-raid spike analytics, and baseline training.
@@ -297,9 +371,14 @@ SpeechShield/
 │
 ├── .env.example                         # Environment variable template
 ├── .gitignore                           # Ignores data/, weights/, .env, and local DBs
+├── .python-version                      # Python version specification for Render (3.11.9)
+├── build.sh                             # Build script for Render native Python runtime
 ├── docker-compose.yml                   # Orchestrates PostgreSQL, Kafka, API & Frontend
-├── Dockerfile.api                       # FastAPI container image
+├── Dockerfile                           # Production Docker image (Render Web Service)
+├── Dockerfile.api                       # FastAPI container image for Docker Compose
 ├── Dockerfile.frontend                  # Nginx container image for HTML/Tailwind UI
+├── Procfile                             # Web process definition for Render / Heroku
+├── render.yaml                          # Render Blueprint infrastructure-as-code
 ├── requirements.txt                     # Python dependencies
 └── README.md
 ```

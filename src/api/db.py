@@ -68,7 +68,13 @@ def build_engine_and_session(database_url: str | None = None) -> tuple[object, s
     """Create SQLAlchemy engine and session factory."""
     url = database_url or _default_database_url()
     connect_args = {"check_same_thread": False} if url.startswith("sqlite") else {}
-    engine = create_engine(url, connect_args=connect_args, future=True)
+    engine = create_engine(
+        url,
+        connect_args=connect_args,
+        future=True,
+        pool_pre_ping=True,
+        pool_recycle=300,
+    )
     Base.metadata.create_all(bind=engine)
     session_factory = sessionmaker(bind=engine, autocommit=False, autoflush=False, expire_on_commit=False)
     return engine, session_factory
