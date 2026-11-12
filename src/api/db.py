@@ -22,10 +22,10 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column, sess
 
 def _default_database_url() -> str:
     url = (os.getenv("DATABASE_URL") or "").strip() or "sqlite:///./data/toxicity_logs.db"
-    if url.startswith("postgres://"):
-        url = url.replace("postgres://", "postgresql+psycopg2://", 1)
-    elif url.startswith("postgresql://"):
-        url = url.replace("postgresql://", "postgresql+psycopg2://", 1)
+    for prefix in ("postgres://", "postgresql://", "postgresql+psycopg://"):
+        if url.startswith(prefix):
+            url = url.replace(prefix, "postgresql+psycopg2://", 1)
+            break
     if url.startswith("sqlite:///"):
         db_file = Path(url.replace("sqlite:///", "", 1))
         db_file.parent.mkdir(parents=True, exist_ok=True)

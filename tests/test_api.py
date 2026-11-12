@@ -173,3 +173,18 @@ def test_baseline_model_training_and_fastpass(tmp_path: Path) -> None:
     toxic_pred = clf.predict("Shut up you pathetic idiot loser")
     assert toxic_pred.overall_score >= 0.45
 
+
+def test_database_url_normalization(monkeypatch: pytest.MonkeyPatch) -> None:
+    from src.api.db import _default_database_url
+
+    for raw in (
+        "postgres://user:pass@host:5432/db",
+        "postgresql://user:pass@host:5432/db",
+        "postgresql+psycopg://user:pass@host:5432/db?sslmode=require",
+    ):
+        monkeypatch.setenv("DATABASE_URL", raw)
+        assert _default_database_url().startswith("postgresql+psycopg2://")
+
+    monkeypatch.setenv("DATABASE_URL", "   ")
+    assert _default_database_url() == "sqlite:///./data/toxicity_logs.db"
+
