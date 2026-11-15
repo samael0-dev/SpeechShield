@@ -390,5 +390,5 @@ SpeechShield/
 * **Rajat Kumar Bhatra (125EC0036)** — Role: ML Engineer & Presentation
 * **Om Prakash Behera (125EI0023)** — Role: ML Engineer & Technical Author
 * **Anish Kumar (125EI0035)** — Role: Data Engineer & Frontend
-* **Nalinikanta Behera (125EI0024)** — Role: Frontend & Presentation
+* **Nalinikanta Mohapatra (125EI0024)** — Role: Frontend & Presentation
 * **Niladri Mohanty (125EI0031)** — Role: Data Engineer & Technical Author
